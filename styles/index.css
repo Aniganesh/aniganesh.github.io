@@ -1,0 +1,118 @@
+* {
+    box-sizing: border-box;
+    overflow: hidden;
+    
+}
+
+
+#top-bar {
+    position: absolute;
+    top: 0%;
+    background: #313131;
+    height: 5vh;
+    width: 100vw;
+    color: #ccc;
+    padding: 0px;
+    margin: 0px;
+}
+
+#top-bar h3 {
+    display: inline;
+}
+
+#display-picture {
+    float: left;
+    height: 20vh;
+    border-radius: 55%;
+}
+
+.side-bar {
+    position: absolute;
+    top:5vh;
+    width: 30vw;
+    height: 80vh;
+    float: left;
+    background: green;
+}
+
+.side-bar ul {
+    position: relative;
+    width: inherit;
+    list-style-type: none;
+    font-size: 2.5em;
+    padding: 0px;
+}
+
+.side-bar ul li {
+    border-bottom: solid .01em #ccc;
+    border-top: solid .01em #ccc;
+    margin:0px;
+    text-align: left;
+}
+
+.side-bar ul li a img {
+    height: 4vh;
+    width: 1.3vw;
+    float: right;
+}
+
+.side-bar a {
+    text-decoration: none;
+    color: beige;
+}
+
+.container {
+    position: absolute;
+    top: 5.8vh;
+    right: .1vw;
+    width: 69vw;
+    height: 80vh;
+}
+
+.container #top h1 {
+    padding-top: 6%;
+    padding-left: 1.2em;
+}
+
+.container #content {
+    display: block;
+    padding-left: 3em;
+    font-size: 1.2em;
+    list-style: initial;
+}
+
+.container #content ol a{
+    text-decoration: none;
+    color: rgb(30, 103, 128);
+}
+
+.container #top {
+    height: 22.5vh;
+    border: .3vw solid gray;
+    border-radius: 4vh;
+    width: 100%;
+    display: flex;
+    align-content: left;
+}
+
+footer a {
+    text-decoration: none;
+    color: lightblue;
+}
+
+footer img {
+    height: 4vh;
+    width: 2vw;
+}
+
+footer {
+    height: 15vh;
+    width: 100vw;
+    font-size: 2em;
+    background: #030303;
+    color: #fff;
+    text-align: center;
+    padding-top: 2em;
+    position: absolute;
+    bottom: 0%;
+}
