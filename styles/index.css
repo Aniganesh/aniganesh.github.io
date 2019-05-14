@@ -6,13 +6,14 @@
 #top-bar {
     position: absolute;
     top: 0%;
-    background: #313131;
+    background: rgb(161, 17, 60);
     height: 6vh;
     width: 100vw;
     color: #ccc;
     padding: 0px;
     margin: 0px;
     z-index: 2;
+    box-shadow: #ccc .1em .1em;
 }
 
 .side-bar {
@@ -21,8 +22,9 @@
     width: 30vw;
     height: 80vh;
     float: left;
-    background: green;
+    background: rgb(161, 17, 60);
 }
+/* background: rgb(161, 17, 60); */
 
 .side-bar ul {
     position: relative;
@@ -92,6 +94,11 @@ a {
     align-content: left;
 }
 
+.container ul, .container ol{
+    list-style-type: disc;
+    list-style-position: inside;
+}
+
 footer a {
     text-decoration: none;
     color: lightblue;
@@ -131,7 +138,7 @@ footer {
         position: relative;
         top: 0vh;
         width: 100vw;
-        height: 8.5vh;
+        height: auto;
         font-size: .75em;
     }
     
@@ -155,8 +162,8 @@ footer {
         top: 2vh;
         left: 1vw;
         overflow-y: scroll;
-        word-wrap: break-word; 
-
+        word-wrap: break-word;
+        height:70.5vh;  
     }
     
     .container #top img{
@@ -174,12 +181,12 @@ footer {
         width:100rem;
         text-align: left; 
         padding: 0px;
+        height: auto;
     }
     
     footer {
         width:100vw;
-        position: relative;
-        top: 0vh;
+        height: 10vh;
         color: #fff;
         font-size: 1.5rem;
     }
