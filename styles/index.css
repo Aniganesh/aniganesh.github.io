@@ -51,9 +51,11 @@
 }
 
 #display-picture {
+    margin-top:.75vh;
+    margin-left: 1vw;
     float: left;
     height: 20vh;
-    border-radius: 55%;
+    border-radius: 50%;
 }
 
 .container {
@@ -111,3 +113,5 @@ footer {
     position: absolute;
     bottom: 0%;
 }
+
+@media 
