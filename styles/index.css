@@ -67,7 +67,7 @@
 }
 
 .container #top h1 {
-    padding-top: 6%;
+    padding-top: 5%;
     padding-left: 1.2em;
 }
 
@@ -78,7 +78,7 @@
     list-style: initial;
 }
 
-.container #content ol a {
+a {
     text-decoration: none;
     color: rgb(30, 103, 128);
 }
