@@ -6,7 +6,7 @@
 #top-bar {
     position: absolute;
     top: 0%;
-    background: rgb(161, 17, 60);
+    background: rgb(138, 17, 60);
     height: 6vh;
     width: 100vw;
     color: #ccc;
@@ -22,7 +22,7 @@
     width: 30vw;
     height: 80vh;
     float: left;
-    background: rgb(161, 17, 60);
+    background: rgb(138, 17, 60);
 }
 /* background: rgb(161, 17, 60); */
 
