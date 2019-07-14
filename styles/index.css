@@ -78,6 +78,7 @@
     padding-left: 3em;
     font-size: 1.1em;
     list-style: initial;
+    overflow: scroll;
 }
 
 a {
@@ -182,6 +183,7 @@ footer {
         text-align: left; 
         padding: 0px;
         height: auto;
+        overflow: scroll;
     }
     
     footer {
