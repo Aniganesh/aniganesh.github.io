@@ -1,8 +1,24 @@
+@font-face {
+    font-family: "Chapaza";
+    src: url("../fonts/Chapaza.ttf");
+}
+
+@font-face {
+    font-family: "Timeless";
+    ;
+    src: url("../fonts/Timeless.ttf");
+}
+
 :root {
     --red: rgb(161, 17, 60);
     --grey: #ccc;
     --black: #3c3c3c;
     --light-blue: #6899ff;
+}
+
+body {
+    font-family: "Timeless", "Chapaza", serif;
+    word-wrap: break-word;
 }
 
 /* Containers */
