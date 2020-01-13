@@ -44,6 +44,7 @@ body {
     display: -moz-box;
     display: -webkit-box;
     flex-direction: column;
+    flex-flow: row wrap;
 }
 
 .flex-container-inline {
@@ -282,6 +283,9 @@ body {
 /* Media queries for smaller screens*/
 
 @media only screen and (max-width:720px) {
+    .flex-container {
+        flex-basis: auto;
+    }
     .grid-container {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -312,10 +316,26 @@ body {
         transition: 0.2s linear;
     }
     #social-label {
-        z-index: 2;
+        position: absolute;
+        top: 0;
+        margin: 0.25em;
     }
     .clear {
         clear: left;
+    }
+    #profile-intro {
+        display: flex;
+        display: -ms-flex;
+        display: -moz-box;
+        display: -webkit-box;
+        flex-direction: column;
+        flex-flow: row wrap;
+    }
+    #name, #name span {
+        display: inline;
+    }
+    #name:first-child {
+        display: none;
     }
     /* Burger icon specific classes and ids */
     .burg-icon {
