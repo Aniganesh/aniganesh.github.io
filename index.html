@@ -9,15 +9,23 @@
     <script src="scripts/index.js" defer></script>
     <link rel="stylesheet" type="text/css" href="styles/index.css" />
     <link rel="stylesheet" type="text/css" href="styles/Resets.css" />
+
 </head>
 
 <body>
-    <div
-        class="m-0 top-bar full-width border-bottom border-grey bg-red text-medium text-vertical-centre colour-white shadow">
+    <div class="m-0 top-bar full-width border-bottom border-grey bg-red text-medium colour-white shadow">
         Aniruddha Ganesh
     </div>
     <div class="grid-container">
-        <div class="bg-red col-1-3 full-height">
+        <label class="only-small only-small-ib" id="social-label" style="cursor: pointer" for="menubox">
+            <div class="inline-block only-small only-small-ib">
+                <div style="width:30px; height: 5px; margin: 3px; background: #333;"></div>
+                <div style="width:30px; height: 5px; margin: 3px; background: #333;"></div>
+                <div style="width:30px; height: 5px; margin: 3px; background: #333;"></div>
+            </div>
+        </label><input type="checkbox" id="menubox" class="hidden" />
+
+        <div class="bg-red col-1-3 p-t-3 full-height" id="side-bar">
             <span class="text-medium colour-white">Social:</span>
             <ul>
                 <li class="list-style-none full-width p-1 align-left border-bottom border-grey"><a
@@ -42,13 +50,13 @@
                         class="no-style colour-beige" href="mailto:aniganesh741@gmail.com">Email</a> </li>
             </ul>
         </div>
-        <div class="col-3-12 grid-container  m-1">
-            <div class="col-1-12 flex-container border border-black border-rounded">
+        <div class="col-3-12 m-1">
+            <div class="flex-container border border-black border-rounded">
                 <img src="images/Me3.png" class="border-none inline-block circle w-300" />
-                <strong class="text-large m-t-0 full-height text-vertical-centre">Aniruddha
+                <strong class="text-large m-t-0 full-height inline-block">Aniruddha
                     Ganesh</strong>
             </div>
-            <div class="col-1-12 m-0">
+            <div class="m-0">
                 <strong>Self description:</strong><br />
                 I am a student, currently studying III year, B. Tech in Information Technology at <a
                     href="http://srit.org" target="_blank" class="no-style colour-lb">Sri
@@ -70,71 +78,81 @@
             <div>
 
             </div>
-            <strong class="col-1-3 m-0">My Projects:</strong><br />
+            <strong class="m-0">My Projects:</strong><br />
             <!-- Row 1 -->
-            <div class="col-1-4 border border-rounded m-0">
-                <div class="full-height full-width p-1">
+            <div class="w-400 inline-block m-1 h-400 border border-rounded vertical-top flex-container"
+                style="height: 350px;">
+                <div class="p-1">
                     <h1>Custom Components Library</h1>
-                    <p>A set of reusable custom components that are built using HTML5 web components standards</p>
+                    <p>A set of reusable custom components that are built using HTML5 web components standards.</p>
                     <a href="https://github.com/Aniganesh/custom-components" target="_blank"
-                        class="inline-block btn bg-red colour-beige">View on GitHub</a>
+                        class="flex-align-bottom inline-block btn bg-red colour-beige">View on GitHub</a>
                 </div>
             </div>
-            <div class="col-4-7 border border-rounded m-0">
+            <div class="w-400 inline-block border border-rounded m-1 vertical-top flex-container"
+                style="height: 350px;">
                 <div class="p-1">
                     <h1>MyMOOC</h1>
-                    <p>A front-end template for quickly creating responsive UI for Massive Open Online Courses (MOOCs)
+                    <p>A front-end template for quickly creating responsive UI for Massive Open Online Courses
+                        (MOOCs). It uses the Bootstrap framework and Font-awesome iconset.
                     </p>
                     <a href="https://github.com/Aniganesh/MyMOOC" target="_blank"
-                        class=" inline-block btn bg-red colour-beige">View on GitHub</a>
+                        class="flex-align-bottom  inline-block btn bg-red colour-beige">View on GitHub</a>
                 </div>
             </div>
-            <div class="col-7-10 border border-rounded m-0">
+            <div class="w-400 inline-block m-1 border border-rounded vertical-top flex-container"
+                style="height: 350px;">
                 <div class="p-1">
                     <h1>Collar cleaning machine</h1>
-                    <p>An IoT based inexpensive machine specifically designed for cleaning collars and tough stains in a
-                        small region. It was
-                        one of the selected projects for <a href="https://yp.ieee.org/ieeess122018/"
-                            class="no-style colour-lb" target="_blank"> MakerFair IEEE SS12 2018 International level
-                            finals at Sri Lanka </a> </p>
-                    <a href="ccm.html" target="_blank" class="inline-block btn bg-red colour-beige">View more info</a>
+                    <p>An IoT based inexpensive machine specifically designed for cleaning collars and tough stains
+                        in a small region. It was one of the selected projects for <a
+                            href="https://yp.ieee.org/ieeess122018/" class="no-style colour-lb" target="_blank">
+                            MakerFair IEEE SS12 2018 International level finals at Sri Lanka. </a> </p>
+                    <a href="ccm.html" target="_blank"
+                        class="flex-align-bottom inline-block btn bg-red colour-beige">View more
+                        info</a>
                 </div>
             </div>
-
             <!-- Row 2 -->
-            <div class="col-1-4 m-0 border border-rounded">
+            <div class="w-400 inline-block m-1 border border-rounded vertical-top" style="height: 400px;">
                 <div class="p-1">
                     <h1>Colour pallette creator</h1>
                     <p>It is a simple app that creates a colour scheme for web designers to work with. Created using
-                        Python and the Tkinter package.</p>
+                        Python and the Tkinter package, it complements
+                        Bootstrap's BEM specification adding modifier classes to go with Bootstrap's border and bg
+                        classes.
+                    </p>
                     <a class="inline-block btn bg-red colour-beige">View on Github</a>
                 </div>
             </div>
-            <div class="col-4-7 m-0 border border-rounded">
+            <div class="w-400 inline-block m-1  border border-rounded vertical-top" style="height: 400px;">
                 <div class="p-1">
                     Published paper:<br />
                     <strong style="font-size: larger">Performance Analysis of Kmeans and Fuzzy-Cmeans Classification
-                        Algorithms for Satellite
-                        Images</strong>
+                        Algorithms for Satellite Images</strong>
                     <a href="File/GSSTEM paper.pdf" target="_blank" class="inline-block btn bg-red colour-beige">View
                         Full text</a><br /><br />
                     <a href="File/GSSTEM paper.pdf" target="download"
-                        class="inline-block btn bg-red colour-beige">Download full text</a>
+                        class="inline-block btn bg-red colour-beige">Download
+                        full text</a>
                 </div>
             </div>
-            <div class="col-7-10 border border-rounded">
+            <div class="w-400 inline-block border border-rounded m-1 vertical-top" style="height: 400px;">
                 <div class="p-1">
                     <h1>Palmyra palm seed picker</h1>
                     <p>An IoT based device that utilised Computer Vision to pick out the edible seeds from tender palm
-                        fruit. It was one of 60 projects selected for the semifinals at IICDC 2018-2019 from 10146
-                        projects in the preliminary stage.</p>
-                    <a href="ppm.html" class="inline-block btn bg-red colour-beige">View more info</a>
+                        fruit. It was one of 60 projects selected for the semifinals of <a
+                            href="https://innovate.mygov.in/india-innovation-challenge-design-contest-2018/"
+                            class="no-style colour-lb" target="_blank"> Texas Instruments and DST's IICDC 2018-2019
+                        </a>from 10146 projects in the
+                        preliminary stage.</p>
+                    <a href="ppm.html" target="_blank" class="inline-block btn bg-red colour-beige">View more info</a>
                 </div>
             </div>
 
         </div>
     </div>
-    <footer class="full-width bg-black colour-white text-vertical-centre text-centre p-2">
+    <footer class="full-width bg-black colour-white text-centre p-2">
         <span class="text-medium"> No copyright. The code is available on <a
                 href="https://github.com/Aniganesh/portfolio" target="_blank"
                 class="no-style colour-lb">Github</a></span></span>

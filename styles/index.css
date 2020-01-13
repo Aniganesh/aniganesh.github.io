@@ -64,6 +64,10 @@ body {
     margin-bottom: auto;
 }
 
+.flex-align-centre {
+    margin: auto;
+}
+
 .top-bar {
     width: 100vw;
     height: 5vh;
@@ -182,11 +186,17 @@ body {
     font-size: 0.5rem;
 }
 
-/* text centering utilities */
+/*  */
 
-.text-vertical-centre {
+.vertical-centre {
     vertical-align: middle;
 }
+
+.vertical-top {
+    vertical-align: top;
+}
+
+/* text centering utilities */
 
 .text-centre {
     text-align: center;
@@ -245,9 +255,67 @@ body {
     color: initial;
 }
 
+/* Remove the following class. */
+
+.hidden {
+    display: none;
+}
+
+.only-small {
+    display: none;
+}
+
+/* Media queries for smaller screens*/
+
 @media only screen and (max-width:720px) {
     .grid-container {
         grid-template-columns: repeat(3, 1fr);
+    }
+    [class*='col-3-'] {
+        grid-column-start: 1 !important;
+        grid-column-end: 4 !important;
+    }
+    .only-small {
+        display: reset;
+    }
+    .only-small-ib {
+        display: inline-block !important;
+    }
+    #side-bar {
+        grid-column-start: unset !important;
+        grid-column-end: unset !important;
+        width: 100%;
+        right: 100%;
+        position: absolute;
+        opacity: 0;
+        transition: 0.2s ease;
+        z-index: 1;
+    }
+    #menubox:checked~#side-bar {
+        right: 0;
+        position: absolute;
+        opacity: 1;
+        transition: 0.2s linear;
+    }
+    #social-label {
+        z-index: 2;
+    }
+    .clear {
+        clear: left;
+    }
+    /* Burger icon specific classes and ids */
+    .burg-icon {
+        fill: rgba(255, 255, 255, 0);
+        stroke: black;
+        stroke-width: 1px;
+        z-index: 1;
+        height: 18.75%;
+        width: 80%;
+        x: 10%;
+    }
+    #topicon {
+        fill: beige;
+        y: 8%;
     }
 }
 

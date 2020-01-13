@@ -13,6 +13,7 @@ widthSetItems.forEach((item) => {
         size += elementClass[index];
         index++;
     }
+    size = size.replace(/\s+/g, '');
     const style = item.getAttribute("style") ? item.getAttribute("style") + "; width: " + size + "px" : "width:" + size + "px";
     item.setAttribute("style", style);
 });
