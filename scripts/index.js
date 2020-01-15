@@ -9,12 +9,15 @@ widthSetItems.forEach((item) => {
         return;
     let size = "";
     index += 2;
+
     while (elementClass[index] && !(isNaN(elementClass[index]))) {
         size += elementClass[index];
         index++;
     }
     size = size.replace(/\s+/g, '');
-    const style = item.getAttribute("style") ? item.getAttribute("style") + "; width: " + size + "px" : "width:" + size + "px";
+    // size = parseInt(size);
+    
+    const style = item.getAttribute("style") ? item.getAttribute("style") + "; max-width: " + size + "px" : "max-width:" + size + "px";
     item.setAttribute("style", style);
 });
 
@@ -140,4 +143,23 @@ prSetItems.forEach((item) => {
     const style = item.getAttribute("style") ? item.getAttribute("style") + "; padding-right: " + size + "em" : "padding-right: " + size + "em";
     item.setAttribute("style", style);
 
+});
+
+const heightSetItems = document.querySelectorAll("[class*='h-'");
+heightSetItems.forEach((item) => {
+    const elementClass = item.className;
+    const classRegexp = /[h][\-][0-9]+/; //Look for a sequence starting with a 'w' followed by a hyphen (-) and atleast one number
+    let index = elementClass.search(classRegexp);
+    if (index < 0)
+        return;
+    let size = "";
+    index += 2;
+
+    while (elementClass[index] && !(isNaN(elementClass[index]))) {
+        size += elementClass[index];
+        index++;
+    }
+    size = size.replace(/\s+/g, '');
+    const style = item.getAttribute("style") ? item.getAttribute("style") + "; min-height: " + size +"px" : "min-height:" + size + "px";
+    item.setAttribute("style", style);
 });
