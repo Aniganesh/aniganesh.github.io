@@ -145,6 +145,28 @@ prSetItems.forEach((item) => {
 
 });
 
+const maxHeightSetItems = document.querySelectorAll("[class*='h-max'");
+maxHeightSetItems.forEach((item) => {
+    const elementClass = item.className;
+    const classRegexp = /[h][\-][m][a][x][\-][0-9]+/; //Look for a sequence starting with a 'h' followed by a hyphen (-), followed by max and atleast one number
+    let index = elementClass.search(classRegexp);
+    console.log(index);
+    console.log(elementClass[index]);
+    if (index < 0)
+        return;
+    let size = "";
+    index += 6;
+
+    while (elementClass[index] && !(isNaN(elementClass[index]))) {
+        size += elementClass[index];
+        index++;
+    }
+    size = size.replace(/\s+/g, '');
+    const style = item.getAttribute("style") ? item.getAttribute("style") + "; max-height: " + size +"px" : "max-height:" + size + "px";
+    item.setAttribute("style", style);
+});
+
+
 const heightSetItems = document.querySelectorAll("[class*='h-'");
 heightSetItems.forEach((item) => {
     const elementClass = item.className;
