@@ -16,7 +16,7 @@ widthSetItems.forEach((item) => {
     }
     size = size.replace(/\s+/g, '');
     // size = parseInt(size);
-    
+
     const style = item.getAttribute("style") ? item.getAttribute("style") + "; max-width: " + size + "px" : "max-width:" + size + "px";
     item.setAttribute("style", style);
 });
@@ -29,7 +29,7 @@ paddingSetitems.forEach((item) => {
     if (index < 0)
         return;
     const size = elementClass[index + 2];
-    const style = item.getAttribute("style") ? item.getAttribute("style") + "; padding: " + size + "em" : "padding:" + size + "em";
+    const style = item.getAttribute("style") ? item.getAttribute("style") + "; padding: " + size + "rem" : "padding:" + size + "rem";
     item.setAttribute("style", style);
 
 });
@@ -43,7 +43,7 @@ marginSetitems.forEach((item) => {
     if (index < 0)
         return;
     const size = elementClass[index + 2];
-    const style = item.getAttribute("style") ? item.getAttribute("style") + "; margin: " + size + "em" : "margin: " + size + "em";
+    const style = item.getAttribute("style") ? item.getAttribute("style") + "; margin: " + size + "rem" : "margin: " + size + "rem";
     item.setAttribute("style", style);
 
 });
@@ -56,7 +56,7 @@ mtSetItems.forEach((item) => {
     if (index < 0)
         return;
     const size = elementClass[index + 4];
-    const style = item.getAttribute("style") ? item.getAttribute("style") + "; margin-top: " + size + "em" : "margin-top: " + size + "em";
+    const style = item.getAttribute("style") ? item.getAttribute("style") + "; margin-top: " + size + "rem" : "margin-top: " + size + "rem";
     item.setAttribute("style", style);
 
 });
@@ -68,7 +68,7 @@ ptSetItems.forEach((item) => {
     if (index < 0)
         return;
     const size = elementClass[index + 4];
-    const style = item.getAttribute("style") ? item.getAttribute("style") + "; padding-top: " + size + "em" : "padding-top: " + size + "em";
+    const style = item.getAttribute("style") ? item.getAttribute("style") + "; padding-top: " + size + "rem" : "padding-top: " + size + "rem";
     item.setAttribute("style", style);
 
 });
@@ -80,7 +80,7 @@ mbSetItems.forEach((item) => {
     if (index < 0)
         return;
     const size = elementClass[index + 4];
-    const style = item.getAttribute("style") ? item.getAttribute("style") + "; margin-bottom: " + size + "em" : "margin-bottom: " + size + "em";
+    const style = item.getAttribute("style") ? item.getAttribute("style") + "; margin-bottom: " + size + "rem" : "margin-bottom: " + size + "rem";
     item.setAttribute("style", style);
 
 });
@@ -92,7 +92,7 @@ pbSetItems.forEach((item) => {
     if (index < 0)
         return;
     const size = elementClass[index + 4];
-    const style = item.getAttribute("style") ? item.getAttribute("style") + "; padding-bottom: " + size + "em" : "padding-bottom: " + size + "em";
+    const style = item.getAttribute("style") ? item.getAttribute("style") + "; padding-bottom: " + size + "rem" : "padding-bottom: " + size + "rem";
     item.setAttribute("style", style);
 
 });
@@ -104,7 +104,7 @@ mlSetItems.forEach((item) => {
     if (index < 0)
         return;
     const size = elementClass[index + 4];
-    const style = item.getAttribute("style") ? item.getAttribute("style") + "; margin-left: " + size + "em" : "margin-left: " + size + "em";
+    const style = item.getAttribute("style") ? item.getAttribute("style") + "; margin-left: " + size + "rem" : "margin-left: " + size + "rem";
     item.setAttribute("style", style);
 
 });
@@ -116,7 +116,7 @@ plSetItems.forEach((item) => {
     if (index < 0)
         return;
     const size = elementClass[index + 4];
-    const style = item.getAttribute("style") ? item.getAttribute("style") + "; padding-left: " + size + "em" : "padding-left: " + size + "em";
+    const style = item.getAttribute("style") ? item.getAttribute("style") + "; padding-left: " + size + "rem" : "padding-left: " + size + "rem";
     item.setAttribute("style", style);
 
 });
@@ -128,7 +128,7 @@ mrSetItems.forEach((item) => {
     if (index < 0)
         return;
     const size = elementClass[index + 4];
-    const style = item.getAttribute("style") ? item.getAttribute("style") + "; margin-right: " + size + "em" : "margin-right: " + size + "em";
+    const style = item.getAttribute("style") ? item.getAttribute("style") + "; margin-right: " + size + "rem" : "margin-right: " + size + "rem";
     item.setAttribute("style", style);
 
 });
@@ -140,7 +140,7 @@ prSetItems.forEach((item) => {
     if (index < 0)
         return;
     const size = elementClass[index + 4];
-    const style = item.getAttribute("style") ? item.getAttribute("style") + "; padding-right: " + size + "em" : "padding-right: " + size + "em";
+    const style = item.getAttribute("style") ? item.getAttribute("style") + "; padding-right: " + size + "rem" : "padding-right: " + size + "rem";
     item.setAttribute("style", style);
 
 });
@@ -162,7 +162,7 @@ maxHeightSetItems.forEach((item) => {
         index++;
     }
     size = size.replace(/\s+/g, '');
-    const style = item.getAttribute("style") ? item.getAttribute("style") + "; max-height: " + size +"px" : "max-height:" + size + "px";
+    const style = item.getAttribute("style") ? item.getAttribute("style") + "; max-height: " + size + "px" : "max-height:" + size + "px";
     item.setAttribute("style", style);
 });
 
@@ -182,6 +182,6 @@ heightSetItems.forEach((item) => {
         index++;
     }
     size = size.replace(/\s+/g, '');
-    const style = item.getAttribute("style") ? item.getAttribute("style") + "; min-height: " + size +"px" : "min-height:" + size + "px";
+    const style = item.getAttribute("style") ? item.getAttribute("style") + "; min-height: " + size + "px" : "min-height:" + size + "px";
     item.setAttribute("style", style);
 });

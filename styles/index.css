@@ -282,15 +282,15 @@ body {
 
 /* Media queries for smaller screens*/
 
-@media only screen and (max-width:949px){
-    .grid-container{
-        grid-template-columns: repeat(6,1fr);
+@media only screen and (max-width:949px) {
+    .grid-container {
+        grid-template-columns: repeat(6, 1fr);
     }
-    [class*='col-6-']{
+    [class*='col-6-'] {
         grid-column-start: 1;
         grid-column-end: 6;
     }
-    .col-3-12{
+    .col-3-12 {
         grid-column-end: 6;
     }
 }
@@ -368,11 +368,11 @@ body {
 
 @media only screen and (max-width:480px) {
     .grid-container {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: repeat(2, 1fr);
     }
     [class*='col'] {
-        grid-column-start: 1 !important;
-        grid-column-end: 2 !important;
+        grid-column-start: 1;
+        grid-column-end: 2;
     }
 }
 
