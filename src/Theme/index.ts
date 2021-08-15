@@ -1,8 +1,13 @@
 import {createTheme} from '@material-ui/core';
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
+import {colors} from './themeConstants';
+
 const breakpoints = createBreakpoints({});
+
 const Theme = createTheme({
+  ...colors,
   typography: {
+    fontFamily: 'Rhodium libre',
     h1: {
       fontSize: 36,
       [breakpoints.up('sm')]: {
