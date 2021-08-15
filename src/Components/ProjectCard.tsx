@@ -12,7 +12,11 @@ const ProjectCard: FC<ProjectCardProps> = ({}) => {
   const classes = styles();
   return <Card className={classes.root}>
     <Box display="flex">
-      <CardMedia src={'https://images.unsplash.com/photo-1516823989326-bd1bd7d6f4f2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=200'} />
+      <CardMedia
+        className={classes.img}
+        height="140"
+        component="img"
+        src={'https://images.unsplash.com/photo-1516823989326-bd1bd7d6f4f2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=200'} />
       <Box>
         <Typography variant="h2">Project Title</Typography>
         <Typography variant="h3">Project subtitle</Typography>
@@ -46,6 +50,8 @@ const styles = makeStyles((theme) => ({
   img: {
     width: 120,
     height: 120,
+    borderRadius: 20,
+    marginRight: theme.spacing(1.5),
     [theme.breakpoints.up('md')]: {
       width: 157,
       height: 133,
