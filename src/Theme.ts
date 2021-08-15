@@ -18,6 +18,9 @@ const Theme = createTheme({
         fontSize: 32,
       },
     },
+    h3: {
+      fontSize: 20,
+    },
     subtitle1: {
       fontSize: 14,
       [breakpoints.up('md')]: {
