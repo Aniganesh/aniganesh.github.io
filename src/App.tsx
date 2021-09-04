@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import './App.css';
+import './index.css';
 import {ThemeProvider} from '@material-ui/core';
 import Theme from './Theme';
 import RootLayout from './RootLayout';
