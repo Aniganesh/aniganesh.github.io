@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import Screen from './Screen'
+import Screen from './Screen';
 
 interface RootLayoutProps { }
 
