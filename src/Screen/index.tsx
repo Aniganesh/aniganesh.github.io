@@ -12,7 +12,7 @@ const Screen: FC<ScreenProps> = (props) => {
   const theme = useTheme();
   const isDeviceSm = useMediaQuery(theme.breakpoints.down('sm'));
   return <>
-    <Sidebar />
+    {!isDeviceSm?<Sidebar />:null}
     <Box pt={isDeviceSm ? 8 : 10} className={classes.mainContainer}>
       <IntroHeadshot />
       <Projects />
@@ -29,6 +29,9 @@ const styles = makeStyles((theme)=>({
     },
     [theme.breakpoints.between('sm', 'md')]: {
       marginLeft: SIDEBAR_WIDTH_MD+MAIN_CONTAINER_SPACING_MD,
+    },
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: theme.spacing(2.5),
     },
   },
 }));
