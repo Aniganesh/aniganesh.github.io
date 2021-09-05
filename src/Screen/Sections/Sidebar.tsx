@@ -1,20 +1,19 @@
-import {Box, Drawer, makeStyles, Typography} from '@material-ui/core';
-import Spacer from 'Components/Spacer';
-import {SIDEBAR_WIDTH_LG, SIDEBAR_WIDTH_MD} from 'Constants';
 import React, {FC} from 'react';
+import {Box, Drawer, Link, makeStyles} from '@material-ui/core';
+import {SIDEBAR_WIDTH_LG, SIDEBAR_WIDTH_MD} from 'Constants';
 
 interface SidebarProps { }
+
+interface SidebarLink{
+  text: string;
+  link: string;
+}
 
 const Sidebar: FC<SidebarProps> = (props) => {
   const classes = styles();
   return <Drawer variant="permanent" classes={{paper: classes.root}}>
     <Box pt={10} pr={2.5}>
-      <Typography variant="h2" align="right">Social links</Typography>
-      <Spacer height={50} />
-      <Typography variant="h2" align="right">Link1</Typography>
-      <Typography variant="h2" align="right">Link2</Typography>
-      <Typography variant="h2" align="right">Link3</Typography>
-      <Typography variant="h2" align="right">Link4</Typography>
+      {sidebarLinks.map((link)=><Link className={classes.link} key={link.link} underline="none" href={link.link} variant="h2" color="textSecondary" align="right">{link.text}</Link>)}
     </Box>
   </Drawer>;
 };
@@ -29,4 +28,25 @@ const styles = makeStyles((theme) => ({
       width: SIDEBAR_WIDTH_LG,
     },
   },
+  link: {
+    marginBottom: 25,
+    display: 'block',
+  },
 }));
+
+
+const sidebarLinks: SidebarLink[]= [
+  {
+    text: 'Github',
+    link: 'https://github.com/aniganesh',
+  }, {
+    text: 'Linkedin',
+    link: 'https://www.linkedin.com/in/aniruddha-ganesh/',
+  }, {
+    text: 'Instagram',
+    link: 'https://instagram.com/aniganesh741',
+  }, {
+    text: 'Youtube',
+    link: 'https://www.youtube.com/channel/UCTrowLhBSwU55fXwkFcFSBA',
+  },
+];
