@@ -2,6 +2,7 @@ import {Box, makeStyles, useMediaQuery, useTheme} from '@material-ui/core';
 import {SIDEBAR_WIDTH_LG, SIDEBAR_WIDTH_MD} from 'Constants';
 import React, {FC} from 'react';
 import IntroHeadshot from './Sections/IntroHeadshot';
+import MenuSm from './Sections/MenuSm';
 import Projects from './Sections/Projects';
 import Sidebar from './Sections/Sidebar';
 
@@ -12,7 +13,7 @@ const Screen: FC<ScreenProps> = (props) => {
   const theme = useTheme();
   const isDeviceSm = useMediaQuery(theme.breakpoints.down('sm'));
   return <>
-    {!isDeviceSm?<Sidebar />:null}
+    {!isDeviceSm?<Sidebar />:<MenuSm />}
     <Box pt={isDeviceSm ? 8 : 10} className={classes.mainContainer}>
       <IntroHeadshot />
       <Projects />
