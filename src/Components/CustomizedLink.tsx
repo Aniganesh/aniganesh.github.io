@@ -8,12 +8,12 @@ interface CustomizedLinkProps extends SidebarLink{
 
 const CustomizedLink: FC<CustomizedLinkProps> = ({text, link, align = 'right'}) => {
   const classes = styles();
-  return <Link className={classes.link} underline="none" href={link} variant="h2" color="textSecondary" align={align}>{text}</Link>;
+  return <Link className={classes.link} underline="none" href={link} variant="h3" color="textSecondary" align={align}>{text}</Link>;
 };
 
 export default CustomizedLink;
 
-const styles = makeStyles((theme) => ({
+const styles = makeStyles(() => ({
   link: {
     marginBottom: 25,
     display: 'block',
