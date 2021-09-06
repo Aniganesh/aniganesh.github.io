@@ -1,14 +1,17 @@
 import React, {FC} from 'react';
 import {Box, Grid, makeStyles, Typography} from '@material-ui/core';
 import ProjectCard, {ProjectCardProps} from 'Components/ProjectCard';
+import useCustomMediaQuery from 'Hooks/useCustomMediaQuery';
 
 interface ProjectsProps { }
 
 const Projects: FC<ProjectsProps> = (props) => {
   const classes = styles();
+  const {isSm} = useCustomMediaQuery();
+
   return <Box boxSizing="border-box">
     <Typography className={classes.heading} variant="h2">Tiny fun projects</Typography>
-    <Grid container spacing={5} className={classes.gridContainer} alignContent="space-between">
+    <Grid container spacing={!isSm?5:undefined} className={classes.gridContainer} alignContent="space-between">
       {projects.map((project)=><Grid item key={project.image} xs={12} sm={12} md={6} lg={4} xl={3} /* className={classes.gridItem} */><ProjectCard {...project} /></Grid>)}
     </Grid>
   </Box>;

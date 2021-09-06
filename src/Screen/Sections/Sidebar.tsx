@@ -9,7 +9,7 @@ interface SidebarProps { }
 const Sidebar: FC<SidebarProps> = (props) => {
   const classes = styles();
   return <Drawer variant="permanent" classes={{paper: classes.root}}>
-    <Box pt={10} pr={2.5}>
+    <Box pt={15} pr={2.5}>
       {sidebarLinks.map((link)=><CustomizedLink key={link.link} {...link} />)}
     </Box>
   </Drawer>;
