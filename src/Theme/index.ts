@@ -9,7 +9,8 @@ const Theme = createTheme({
   typography: {
     fontFamily: 'Rhodium libre',
     h1: {
-      fontSize: 36,
+      fontSize: 24,
+      lineHeight: 1.7,
       [breakpoints.up('sm')]: {
         fontsize: 40,
       },
@@ -18,19 +19,20 @@ const Theme = createTheme({
       },
     },
     h2: {
-      fontSize: 26,
+      fontSize: 18,
+      lineHeight: 1.7,
       [breakpoints.up('md')]: {
         fontSize: 32,
       },
     },
     h3: {
-      fontSize: 20,
+      fontSize: 26,
+      lineHeight: 1.7,
     },
     subtitle1: {
-      fontSize: 14,
-      [breakpoints.up('md')]: {
-        fontSize: 16,
-      },
+      fontSize: 16,
+      lineHeight: 1.7,
+
     },
   },
 });
