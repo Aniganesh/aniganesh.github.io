@@ -13,5 +13,5 @@ export default function useCustomMediaQuery() {
   const isLg = useMediaQuery(theme.breakpoints.between('lg', 'xl'));
   const isXl = useMediaQuery(theme.breakpoints.up('lg'));
 
-  return {isSm, isXs, isMd, isLg, isXl, minMd: isMd || isLg || isXl, minLg: isLg || isXl, maxSm: isXs || isSm};
+  return {isSm, isXs, isMd, isLg, isXl, minMd: isMd || isLg || isXl, minLg: isLg || isXl, maxSm: (isXs || isSm) && !isMd};
 }
