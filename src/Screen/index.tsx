@@ -1,7 +1,8 @@
-import {Box, makeStyles} from '@material-ui/core';
+import {Box, Link, makeStyles, Typography} from '@material-ui/core';
 import {SIDEBAR_WIDTH_LG, SIDEBAR_WIDTH_MD} from 'Constants';
 import useCustomMediaQuery from 'Hooks/useCustomMediaQuery';
 import React, {FC} from 'react';
+import {projects} from './Sections/Constants';
 import IntroHeadshot from './Sections/IntroHeadshot';
 import MenuSm from './Sections/MenuSm';
 import Projects from './Sections/Projects';
@@ -17,6 +18,14 @@ const Screen: FC<ScreenProps> = (props) => {
     <Box className={classes.mainContainer}>
       <IntroHeadshot />
       <Projects />
+      <Box px={1.5}>
+        <Typography variant="caption">
+          Image sources used:
+        </Typography>
+        <Box display="flex" flexDirection="column">
+          {projects.map((project) => <Link key={project.image} href={project.imgSrc} variant="caption">{project.imgSrc}</Link>)}
+        </Box>
+      </Box>
     </Box>
   </>;
 };

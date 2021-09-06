@@ -27,6 +27,9 @@ const styles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       marginLeft: theme.spacing(-5),
     },
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(0, 4),
+    },
   },
   heading: {
     paddingBottom: theme.spacing(3),
