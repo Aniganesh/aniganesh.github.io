@@ -7,11 +7,11 @@ interface ProjectsProps { }
 
 const Projects: FC<ProjectsProps> = (props) => {
   const classes = styles();
-  const {isSm} = useCustomMediaQuery();
+  const {maxSm} = useCustomMediaQuery();
 
   return <Box boxSizing="border-box">
     <Typography className={classes.heading} variant="h2">Tiny fun projects</Typography>
-    <Grid container spacing={!isSm?5:undefined} className={classes.gridContainer} alignContent="space-between">
+    <Grid container spacing={!maxSm?5:undefined} className={classes.gridContainer} alignContent="space-between">
       {projects.map((project)=><Grid item key={project.image} xs={12} sm={12} md={6} lg={4} xl={3} /* className={classes.gridItem} */><ProjectCard {...project} /></Grid>)}
     </Grid>
   </Box>;
@@ -23,6 +23,9 @@ const styles = makeStyles((theme) => ({
   gridContainer: {
     width: '100%',
     margin: 'auto',
+    [theme.breakpoints.up('md')]: {
+      marginLeft: theme.spacing(-5),
+    },
   },
   heading: {
     paddingBottom: theme.spacing(3),

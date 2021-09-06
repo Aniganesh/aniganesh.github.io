@@ -21,7 +21,7 @@ const styles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.primary.contrastText,
     width: SIDEBAR_WIDTH_MD,
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('lg')]: {
       width: SIDEBAR_WIDTH_LG,
     },
   },
