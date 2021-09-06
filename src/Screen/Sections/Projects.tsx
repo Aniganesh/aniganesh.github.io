@@ -1,7 +1,8 @@
 import React, {FC} from 'react';
 import {Box, Grid, makeStyles, Typography} from '@material-ui/core';
-import ProjectCard, {ProjectCardProps} from 'Components/ProjectCard';
+import ProjectCard from 'Components/ProjectCard';
 import useCustomMediaQuery from 'Hooks/useCustomMediaQuery';
+import {projects} from './Constants';
 
 interface ProjectsProps { }
 
@@ -40,31 +41,3 @@ const styles = makeStyles((theme) => ({
     padding: theme.spacing(5),
   },
 }));
-
-const projects :ProjectCardProps[] =[
-  {
-    image: '1',
-    projectTitle: '',
-    projectSubtitle: '',
-    learning: '',
-  },
-  {
-    image: '2',
-    projectTitle: '',
-    projectSubtitle: '',
-    learning: '',
-  },
-  {
-    image: '3',
-    projectTitle: '',
-    projectSubtitle: '',
-    learning: '',
-  },
-  {
-    image: '4',
-    projectTitle: '',
-    projectSubtitle: '',
-    learning: '',
-  },
-];
-// const GRID_SPACING_LG = 40; const GRID_SPACING_MD = 20; const GRID_SPACING_SM = 10;

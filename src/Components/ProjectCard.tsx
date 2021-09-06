@@ -1,12 +1,8 @@
 import React, {FC} from 'react';
 import {alpha, Box, Card, CardMedia, makeStyles, Typography} from '@material-ui/core';
+import {Project} from '@types';
 
-export interface ProjectCardProps {
-    image: string;
-    projectTitle: string;
-    projectSubtitle: string;
-    learning: string;
-}
+export interface ProjectCardProps extends Project {}
 
 const ProjectCard: FC<ProjectCardProps> = ({}) => {
   const classes = styles();
