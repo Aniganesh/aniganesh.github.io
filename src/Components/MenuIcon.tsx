@@ -1,14 +1,13 @@
 /* eslint-disable react/display-name */
-import React from 'react';
+import React, {FC} from 'react';
 import {makeStyles} from '@material-ui/core';
 
 interface MenuIconProps {
   x?:boolean;
 }
 
-const MenuIcon = React.forwardRef<SVGSVGElement, MenuIconProps>((props, ref) => {
+const MenuIcon :FC <MenuIconProps>= ({x}) => {
   const classes = styles();
-  const {x} = props;
   const cross = {
     svg: {width: '34', height: '34', viewBox: '0 0 34 34'},
     r1: {x: '0.029541', y: '28.3137', width: '40', height: '8', rx: '1.5', transform: 'rotate(-45 0.029541 28.3137)'},
@@ -21,13 +20,13 @@ const MenuIcon = React.forwardRef<SVGSVGElement, MenuIconProps>((props, ref) => 
     r2: {y: '12', width: '40', height: '8', rx: '1.5'},
     r3: {y: '24', width: '40', height: '8', rx: '1.5'},
   };
-  return <svg ref={ref} className={classes.root} {...(x?cross.svg:lines.svg)}fill="none" xmlns="http://www.w3.org/2000/svg">
+  return <svg className={classes.root} {...(x?cross.svg:lines.svg)}fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect {...(x?cross.r1:lines.r1)}fill="white"/>
     <rect {...(x?cross.r2:lines.r2)}fill="white"/>
     <rect {...(x?cross.r3:lines.r3)}fill="white"/>
   </svg>
   ;
-});
+};
 
 export default MenuIcon;
 

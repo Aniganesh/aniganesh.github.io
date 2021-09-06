@@ -1,5 +1,5 @@
 import React, {FC, useRef, useState} from 'react';
-import {Box, makeStyles} from '@material-ui/core';
+import {Box, makeStyles, ClickAwayListener, Button} from '@material-ui/core';
 import MenuIcon from 'Components/MenuIcon';
 import clsx from 'clsx';
 import CustomizedLink from 'Components/CustomizedLink';
@@ -10,15 +10,27 @@ interface MenuSmProps { }
 
 const MenuSm: FC<MenuSmProps> = (props) => {
   const [open, setOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement|null>(null);
   const classes = styles();
-  const ref = useRef<SVGSVGElement|null>(null);
+
   return <Box className={classes.root}>
-    <Box onClick={()=>setOpen(!open)} display={'flex'} justifyContent="center" alignItems="center" height={50} width={50}>
-      <MenuIcon x={open} ref={ref} />
-    </Box>
-    <Box className={clsx(classes.menuOptionsContainer, {[classes.hidden]: !open, [classes.visible]: open})}>
-      {sidebarLinks.map((link) => <CustomizedLink align="center" key={link.link} {...link} />)}
-    </Box>
+    <Button ref={buttonRef} variant="contained" color="primary" onClick={(event)=>{
+      event.stopPropagation(); event.preventDefault();
+      setOpen(!open);
+    }} className={clsx(classes.menuButton, {[classes.active]: open})}>
+      <MenuIcon x={open} />
+    </Button>
+    <ClickAwayListener onClickAway={(event)=>{
+      if (open && event.target !== buttonRef?.current && !buttonRef?.current?.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }}>
+      <div>
+        <Box className={clsx(classes.menuOptionsContainer, {[classes.hidden]: !open, [classes.visible]: open})}>
+          {sidebarLinks.map((link) => <CustomizedLink align="center" key={link.link} {...link} />)}
+        </Box>
+      </div>
+    </ClickAwayListener>
   </Box>;
 };
 
@@ -33,6 +45,18 @@ const styles = makeStyles((theme) => ({
     position: 'relative',
     zIndex: 1, // Create new stacking context
   },
+  menuButton: {
+    // display: 'flex',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    height: 50,
+    width: 50,
+    padding: theme.spacing('3px', '6px'),
+    minWidth: 'unset',
+  },
+  active: {
+    boxShadow: 'none',
+  },
   menuOptionsContainer: {
     transition: 'height ease 300ms, width ease 300ms, opacity ease 300ms',
     backgroundColor: theme.palette.primary.main,
@@ -41,6 +65,10 @@ const styles = makeStyles((theme) => ({
     top: 0,
     paddingTop: 50,
     zIndex: -1, // 1 level below the icon
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)',
   },
   visible: {
     width: '100vw',
