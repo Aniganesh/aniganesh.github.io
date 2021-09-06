@@ -6,6 +6,8 @@ export interface SidebarLink{
 export interface Project{
     image: string;
     projectTitle: string;
-    projectSubtitle: string;
-    learning: string;
+    // projectSubtitle: string;
+    details: string;
+    url: string;
+    imgSrc: string;
 }

@@ -1,39 +1,47 @@
 import React, {FC} from 'react';
-import {alpha, Box, Card, CardMedia, makeStyles, Typography} from '@material-ui/core';
+import {alpha, Box, Card, CardMedia, Link, makeStyles, Typography} from '@material-ui/core';
 import {Project} from '@types';
 
 export interface ProjectCardProps extends Project {}
 
-const ProjectCard: FC<ProjectCardProps> = ({}) => {
+const ProjectCard: FC<ProjectCardProps> = ({image, projectTitle, details, url}) => {
   const classes = styles();
-  return <Card className={classes.root}>
-    <Box display="flex" boxSizing="border-box" alignItems="center">
-      <CardMedia
-        className={classes.img}
-        height="100"
-        component="img"
-        src={'https://images.unsplash.com/photo-1516823989326-bd1bd7d6f4f2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=100'} />
-      <Box>
-        <Typography variant="h2">Project Title</Typography>
+  return <Link href={url} target="_blank" rel="noopener noreferrer" underline="none">
+    <Card className={classes.root}>
+      <Box display="flex" boxSizing="border-box" alignItems="center">
+        <CardMedia
+          className={classes.img}
+          height="100"
+          component="img"
+          src={image} />
+        <Box>
+          <Typography variant="h2">{projectTitle}</Typography>
+        </Box>
       </Box>
-    </Box>
-    <Box>
-      <Typography variant="subtitle1">Enna poruthavaraikum, jananga paasam gra maalaiya, eppovo en thozhla potutaanga, anbu ngra mariyadhaya naan avanga mela kaatra varaikum avanga en mela vechrukra mariyadhaiya yaaralayum thadukka mudiyadhu
-Panam sampadhikanum nu aasai padravan padhaviya thedi povan. Makkalukku sevai seiyanum nu aasai padravana padhavi thedi varum</Typography>
-    </Box></Card>;
+      <Box>
+        <Typography variant="subtitle1">{details}</Typography>
+      </Box>
+    </Card>
+  </Link>;
 };
 
 export default ProjectCard;
 
 const styles = makeStyles((theme) => ({
   root: {
-    minWidth: 280,
-    height: 240,
-    padding: theme.spacing('20px', '25px'),
-    borderRadius: 16,
-    boxSizing: 'border-box',
-    boxShadow: `2px 6px 12px 0px ${alpha(theme.palette.common.black, .12)}`,
-    margin: theme.spacing(1),
+    'minWidth': 280,
+    'minHeight': 300,
+    'padding': theme.spacing('20px', '25px'),
+    'borderRadius': 16,
+    'boxSizing': 'border-box',
+    'boxShadow': `2px 6px 12px 2px ${alpha(theme.palette.common.black, .12)}`,
+    '&:hover': {
+      boxShadow: `2px 6px 12px 8px ${alpha(theme.palette.common.black, .12)}`,
+    },
+    'margin': theme.spacing(1),
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: theme.spacing(5),
+    },
   },
   img: {
     width: 100,
