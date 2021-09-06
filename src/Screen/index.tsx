@@ -36,7 +36,7 @@ const styles = makeStyles((theme)=>({
     [theme.breakpoints.down('sm')]: {
       display: 'flex',
       flexDirection: 'column',
-      padding: theme.spacing(9, 1.5, 0, 1.5),
+      paddingTop: theme.spacing(9),
     },
   },
 }));

@@ -22,11 +22,15 @@ export default Projects;
 const styles = makeStyles((theme) => ({
   gridContainer: {
     width: '100%',
+    margin: 'auto',
   },
   heading: {
-    paddingBottom: 24,
+    paddingBottom: theme.spacing(3),
     [theme.breakpoints.up('sm')]: {
-      paddingBottom: 40,
+      paddingBottom: theme.spacing(5),
+    },
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: theme.spacing(1.5),
     },
   },
   test: {

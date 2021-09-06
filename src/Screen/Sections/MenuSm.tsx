@@ -51,11 +51,11 @@ const styles = makeStyles((theme) => ({
     // alignItems: 'center',
     height: 50,
     width: 50,
-    padding: theme.spacing('3px', '6px'),
+    padding: theme.spacing(0, 1),
     minWidth: 'unset',
   },
   active: {
-    boxShadow: 'none',
+    boxShadow: 'none !important',
   },
   menuOptionsContainer: {
     transition: 'height ease 300ms, width ease 300ms, opacity ease 300ms',
