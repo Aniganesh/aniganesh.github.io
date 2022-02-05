@@ -53,16 +53,16 @@ export default ProjectCard;
 
 const styles = makeStyles((theme) => ({
   root: {
-    "minWidth": 280,
-    "minHeight": 300,
-    "padding": theme.spacing("20px", "25px"),
-    "borderRadius": 16,
-    "boxSizing": "border-box",
-    "boxShadow": `2px 6px 12px 2px ${alpha(theme.palette.common.black, 0.12)}`,
+    minWidth: 280,
+    minHeight: 300,
+    padding: theme.spacing("20px", "25px"),
+    borderRadius: 16,
+    boxSizing: "border-box",
+    boxShadow: `2px 6px 12px 2px ${alpha(theme.palette.common.black, 0.12)}`,
     "&:hover": {
       boxShadow: `2px 6px 12px 8px ${alpha(theme.palette.common.black, 0.12)}`,
     },
-    "margin": theme.spacing(1),
+    margin: theme.spacing(1),
     [theme.breakpoints.down("sm")]: {
       marginBottom: theme.spacing(5),
     },
