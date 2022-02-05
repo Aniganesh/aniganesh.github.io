@@ -15,8 +15,7 @@ jobs:
       - name: Install and Build 🔧
         run: |
           yarn install --frozen-lockfile
-          echo "$ENV" >> .env
-          yarn build
+          DISABLE_ESLINT_PLUGIN=true yarn build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
