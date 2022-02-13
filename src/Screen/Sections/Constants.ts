@@ -66,7 +66,7 @@ export const workProjects: Project[] = [
     projectTitle: "Chet",
     imgSrc: "https://chetnetwork.com/favicon.png",
     details:
-      "Built with React, react-native, easy-peasy and Typescript, Chet is an e-learning platform that gives people the opportunity to learn from collections curated by experts from top companies",
+      "Chet is an e-learning platform that gives people the opportunity to learn from collections curated by experts from top companies. It is built with React, easy-peasy and typescript. The current app uses Cordova. The app version is built using react-native and will be available on iOS and Android",
     url: "https://chetnetwork.com/",
     role: "Front-end lead",
   },
