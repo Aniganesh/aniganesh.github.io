@@ -17,6 +17,10 @@ export const sidebarLinks: SidebarLink[] = [
     text: "Youtube",
     link: "https://www.youtube.com/channel/UCTrowLhBSwU55fXwkFcFSBA",
   },
+  {
+    text: "Stackoverflow",
+    link: "https://stackoverflow.com/users/10032950/frankencode",
+  },
 ];
 export const projects: Project[] = [
   {
