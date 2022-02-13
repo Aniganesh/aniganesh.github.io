@@ -26,6 +26,7 @@
         "react/jsx-props-no-spreading": "off",
         "react/prop-types": "off",
         "quotes": "off",
+        "quote-props": "off",
         "object-curly-spacing": "off"
     }
 }
