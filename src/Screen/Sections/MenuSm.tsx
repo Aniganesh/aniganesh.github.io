@@ -72,7 +72,7 @@ const styles = makeStyles((theme) => ({
   },
   visible: {
     width: '100vw',
-    height: 320,
+    minHeight: 320,
     opacity: 1,
   },
   hidden: {
