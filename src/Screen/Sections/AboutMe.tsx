@@ -1,4 +1,12 @@
-import { Box, Typography } from "@material-ui/core";
+import { Box, Link, Typography } from "@material-ui/core";
+import AmazonS3Icon from "Assets/icons/amazonS3";
+import ExpressIcon from "Assets/icons/express";
+import GraphQLIcon from "Assets/icons/graphql";
+import MongoDBIcon from "Assets/icons/mongodb";
+import NestJSIcon from "Assets/icons/nestjs";
+import ReactIcon from "Assets/icons/react";
+import Typescript from "Assets/icons/typescript";
+import UbuntuIcon from "Assets/icons/ubuntu";
 import React, { FC } from "react";
 
 interface AboutMeProps {}
@@ -6,14 +14,31 @@ interface AboutMeProps {}
 const AboutMe: FC<AboutMeProps> = (props) => {
   return (
     <Box px={1}>
-      <Typography variant="h2">About me:</Typography>
+      <Typography variant="h2">Who am I?:</Typography>
       <Box p={1}>
         <Typography variant="h2">
-          This is where I “introduce myself”. I am a full stack web developer
-          focusing primarily on the front-end with React and typescript. I have
-          also worked with Nestjs, GraphQL, Express and MongoDB. I daily drive
-          an Ubuntu machine and have on occassion written shell scripts and used
-          the aws cli to interact with S3 buckets.
+          I am a full stack web developer focusing primarily on the front-end
+          with React <ReactIcon size={20} /> and typescript{" "}
+          <Typescript size={20} />. I have also worked with{" "}
+          <Link href="">
+            Nestjs <NestJSIcon size={20} />{" "}
+          </Link>
+          ,{" "}
+          <Link href="">
+            {" "}
+            GraphQL <GraphQLIcon height={20} />{" "}
+          </Link>
+          ,
+          <Link>
+            Express <ExpressIcon size={18} />
+          </Link>{" "}
+          and{" "}
+          <Link href="">
+            mongoDB <MongoDBIcon size={20} />
+          </Link>
+          . I daily drive an Ubuntu <UbuntuIcon size={20} /> machine and have on
+          occassion written shell scripts and used the aws cli to interact with
+          S3 <AmazonS3Icon size={20} /> buckets.
         </Typography>
       </Box>
     </Box>
