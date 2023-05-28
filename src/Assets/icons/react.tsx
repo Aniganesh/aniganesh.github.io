@@ -4,13 +4,11 @@ import { CommonIconProps } from "./@types";
 interface ReactIconProps extends CommonIconProps {}
 
 const ReactIcon: FC<ReactIconProps> = ({ width, height, size }) => {
-  const w = width ?? size ?? 256;
   const h = height ?? size ?? 228;
   return (
     <svg
-      width={w}
       height={h}
-      viewBox={`0 0 ${w} ${h}`}
+      viewBox={`0 0 ${256} ${228}`}
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
