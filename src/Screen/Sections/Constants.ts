@@ -1,4 +1,5 @@
 import { Project, SidebarLink } from "@types";
+import chetLogo from "Assets/images/chet-logo.jpeg";
 
 export const sidebarLinks: SidebarLink[] = [
   {
@@ -66,18 +67,18 @@ export const projects: Project[] = [
 
 export const workProjects: Project[] = [
   {
-    image: "https://chetnetwork.com/favicon.png",
+    image: chetLogo,
     projectTitle: "Chet",
-    imgSrc: "https://chetnetwork.com/favicon.png",
+    imgSrc: chetLogo,
     details:
-      "Chet is an e-learning platform that gives people the opportunity to learn from collections curated by experts from top companies. It is built with React, easy-peasy and typescript. The current app uses Cordova. The app version is built using react-native and will be available on iOS and Android",
+      "Chet is an e-learning platform that gives people the opportunity to learn from collections curated by experts from top companies",
     url: "https://chetnetwork.com/",
     role: "Front-end lead",
   },
   // {
-  //   image: "https://chetnetwork.com/favicon.png",
+  //   image: chetLogo,
   //   projectTitle: "Chet",
-  //   imgSrc: "https://chetnetwork.com/favicon.png",
+  //   imgSrc: chetLogo,
   //   details:
   //     "Built with React, easy-peasy and Typescript, Chet is an e-learning platform that gives people the opportunity to learn from collections curated by experts from top companies",
   //   url: "https://chetnetwork.com/",
