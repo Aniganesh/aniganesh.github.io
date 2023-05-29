@@ -60,6 +60,7 @@ const ProjectCard: FC<ProjectCardProps> = ({
         className={clsx(classes.root, "project-card", {
           isOpen: isSelected,
           [classes.cursor]: additionalDetails && !isSelected,
+          [classes.withHover]: additionalDetails && !isSelected,
           [classes.entry]: isEntering,
           [classes.exit]: isExiting,
           [classes.selected]: isSelected,
@@ -78,17 +79,18 @@ const ProjectCard: FC<ProjectCardProps> = ({
             src={image}
           />
           <Box
+            className={classes.projNameContainer}
+            style={!roles?.length ? { overflowY: "hidden" } : {}}
             display="flex"
-            style={{ gap: 8 }}
             flexWrap="wrap"
-            overflow="auto"
           >
-            <Typography variant="h2">{projectTitle}</Typography>
+            <Typography variant="h2" className={classes.projName}>
+              {projectTitle}
+            </Typography>
             {Boolean(roles?.length) && (
               <Box
                 display="flex"
-                style={{ gap: 8 }}
-                overflow="auto"
+                className={classes.rolesContainer}
                 maxWidth="100%"
               >
                 {roles?.map((role) => (
@@ -119,6 +121,17 @@ const ProjectCard: FC<ProjectCardProps> = ({
             )}
           </Box>
         )}
+        {!additionalDetails && Boolean(url) && (
+          <Link
+            className={clsx(classes.link, classes.smallLink)}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visit
+            <LinkIcon fontSize="small" />{" "}
+          </Link>
+        )}
       </Card>
     </>
   );
@@ -127,6 +140,18 @@ const ProjectCard: FC<ProjectCardProps> = ({
 export default ProjectCard;
 
 const styles = makeStyles((theme) => ({
+  projName: {
+    lineHeight: 1.2,
+  },
+  projNameContainer: {
+    gap: 8,
+    overflowX: "auto",
+  },
+  rolesContainer: {
+    overflowX: "auto",
+    overflowY: "hidden",
+    gap: 8,
+  },
   overlay: {
     position: "absolute",
     top: 0,
@@ -150,6 +175,12 @@ const styles = makeStyles((theme) => ({
       transform: "rotate(-45deg)",
     },
   },
+  smallLink: {
+    marginTop: "auto",
+    display: "flex",
+    marginBottom: 0,
+    fontSize: 16,
+  },
   root: {
     zIndex: 0,
     position: "relative",
@@ -159,9 +190,8 @@ const styles = makeStyles((theme) => ({
     borderRadius: 16,
     boxSizing: "border-box",
     boxShadow: `2px 6px 12px 2px ${alpha(theme.palette.common.black, 0.12)}`,
-    "&:hover": {
-      boxShadow: `2px 6px 12px 8px ${alpha(theme.palette.common.black, 0.12)}`,
-    },
+    display: "flex",
+    flexDirection: "column",
     margin: theme.spacing(1),
     transitionProperty: "transform, width",
     transitionDelay: "0s, 300ms",
@@ -173,6 +203,11 @@ const styles = makeStyles((theme) => ({
     height: "100%",
     [theme.breakpoints.down("sm")]: {
       marginBottom: theme.spacing(5),
+    },
+  },
+  withHover: {
+    "&:hover": {
+      boxShadow: `2px 6px 12px 8px ${alpha(theme.palette.common.black, 0.12)}`,
     },
   },
   details: {
@@ -205,6 +240,7 @@ const styles = makeStyles((theme) => ({
     maxWidth: 600,
     width: "100%",
     transform: "translateX(-50%)",
+    transition: "all 200ms ease-in",
   },
   entry: {
     zIndex: 1,
