@@ -9,7 +9,7 @@ const Footer: FC<FooterProps> = () => {
   return (
     <Box className={classes.root}>
       <Box px={1.5}>
-        <Typography variant="caption">Image sources used:</Typography>
+        <Typography variant="caption">Image credits:</Typography>
         <Box display="flex" flexDirection="column">
           {projects.map((project) => (
             <Link key={project.image} href={project.imgSrc} variant="caption">
