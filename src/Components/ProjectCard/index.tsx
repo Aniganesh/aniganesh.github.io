@@ -15,6 +15,7 @@ import {
 import { Project } from "@types";
 import clsx from "clsx";
 import ReactMarkdown from "react-markdown";
+import { projectToggleHandler } from "./projectToggleHandler";
 
 export interface ProjectCardProps extends Project {}
 const spinDuration = 500;
@@ -32,20 +33,20 @@ const ProjectCard: FC<ProjectCardProps> = ({
   const [isExiting, setIsExiting] = useState(false);
   const openCard = () => {
     setIsEntering(true);
-    // setIsExiting(false);
     setTimeout(() => {
       setIsSelected(true);
-      // setIsExiting(false);
+      const intervalId: NodeJS.Timer = setInterval(() => {
+        console.log("interval");
+        projectToggleHandler(() => clearInterval(intervalId));
+      }, 100);
       setIsEntering(false);
     }, spinDuration - 20);
   };
   const closeCard = () => {
-    // setIsEntering(false);
     setIsExiting(true);
     setIsSelected(false);
     setTimeout(() => {
       setIsExiting(false);
-      // setIsEntering(false);
     }, spinDuration - 20);
   };
   return (
@@ -56,7 +57,8 @@ const ProjectCard: FC<ProjectCardProps> = ({
       />
       <Card
         onClick={additionalDetails && !isSelected ? openCard : undefined}
-        className={clsx(classes.root, {
+        className={clsx(classes.root, "project-card", {
+          isOpen: isSelected,
           [classes.cursor]: additionalDetails && !isSelected,
           [classes.entry]: isEntering,
           [classes.exit]: isExiting,
@@ -129,7 +131,7 @@ const styles = makeStyles((theme) => ({
     position: "absolute",
     top: 0,
     left: 0,
-    bottom: 0,
+    bottom: -12000,
     right: 0,
     background: alpha(theme.palette.common.black, 0.5),
     zIndex: 1201,
@@ -223,19 +225,18 @@ const styles = makeStyles((theme) => ({
     },
     "5%": {},
     "50%": {
-      margin: "auto",
       position: "fixed",
       bottom: 40,
-      left: "calc(100vh - 150px)",
-      right: "calc(100vh - 150px)",
+      left: 0,
+      right: 0,
     },
     "99%": {
       margin: "auto",
       marginBottom: 40,
       position: "fixed",
       bottom: 40,
-      left: "calc(100vh - 150px)",
-      right: "calc(100vh - 150px)",
+      left: 0,
+      right: 0,
       width: 300,
       height: 400,
     },
@@ -255,8 +256,8 @@ const styles = makeStyles((theme) => ({
       position: "fixed",
       top: "unset",
       bottom: 40,
-      left: "calc(100vh - 150px)",
-      right: "calc(100vh - 150px)",
+      left: 0,
+      right: 0,
       overflow: "hidden",
     },
     "99%": {
@@ -264,8 +265,8 @@ const styles = makeStyles((theme) => ({
       margin: "auto",
       position: "fixed",
       bottom: 40,
-      left: "calc(100vh - 150px)",
-      right: "calc(100vh - 150px)",
+      left: 0,
+      right: 0,
     },
     "100%": {
       top: "unset",
