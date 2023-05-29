@@ -4,11 +4,14 @@ export interface SidebarLink {
 }
 
 export interface Project {
+  id: string;
   image: string;
   projectTitle: string;
   // projectSubtitle: string;
   details: string;
   url: string;
   imgSrc: string;
-  role?: string;
+  roles?: string[];
+  additionalDetails?: string;
+  duration?: string;
 }

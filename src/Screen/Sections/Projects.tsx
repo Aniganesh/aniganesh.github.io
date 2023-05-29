@@ -24,7 +24,7 @@ const Projects: FC<ProjectsProps> = (props) => {
         {workProjects.map((project) => (
           <Grid
             item
-            key={project.image}
+            key={project.id}
             xs={12}
             sm={12}
             md={6}
