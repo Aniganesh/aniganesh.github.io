@@ -20,7 +20,7 @@ const Theme = createTheme({
     },
     h2: {
       fontSize: 18,
-      lineHeight: 1.7,
+      lineHeight: 1.4,
       [breakpoints.up('md')]: {
         fontSize: 26,
       },

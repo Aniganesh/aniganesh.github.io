@@ -11,7 +11,7 @@ const Projects: FC<ProjectsProps> = (props) => {
   const { maxSm } = useCustomMediaQuery();
 
   return (
-    <Box boxSizing="border-box">
+    <Box boxSizing="border-box" pt={3}>
       <Typography className={classes.heading} variant="h2">
         Work projects
       </Typography>
@@ -68,6 +68,7 @@ const styles = makeStyles((theme) => ({
   gridContainer: {
     width: "100%",
     margin: "auto",
+    paddingBottom: theme.spacing(3),
     [theme.breakpoints.up("md")]: {
       marginLeft: theme.spacing(-5),
     },
@@ -75,15 +76,7 @@ const styles = makeStyles((theme) => ({
       padding: theme.spacing(0, 4),
     },
   },
-  heading: {
-    paddingBottom: theme.spacing(3),
-    [theme.breakpoints.up("sm")]: {
-      paddingBottom: theme.spacing(5),
-    },
-    [theme.breakpoints.down("sm")]: {
-      paddingLeft: theme.spacing(1.5),
-    },
-  },
+  heading: {},
   test: {
     padding: theme.spacing(5),
   },

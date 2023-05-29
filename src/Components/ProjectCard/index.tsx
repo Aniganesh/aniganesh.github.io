@@ -1,4 +1,6 @@
 import React, { FC, useState } from "react";
+import CloseIcon from "@material-ui/icons/Close";
+import LinkIcon from "@material-ui/icons/Link";
 import {
   alpha,
   Box,
@@ -7,12 +9,15 @@ import {
   makeStyles,
   Typography,
   Chip,
+  IconButton,
+  Link,
 } from "@material-ui/core";
 import { Project } from "@types";
 import clsx from "clsx";
+import ReactMarkdown from "react-markdown";
 
 export interface ProjectCardProps extends Project {}
-const spinDuration = 600;
+const spinDuration = 500;
 const ProjectCard: FC<ProjectCardProps> = ({
   image,
   projectTitle,
@@ -25,63 +30,127 @@ const ProjectCard: FC<ProjectCardProps> = ({
   const [isSelected, setIsSelected] = useState(false);
   const [isEntering, setIsEntering] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
-  const handleClick = () => {
-    setIsEntering(!isSelected);
-    setIsExiting(isSelected);
+  const openCard = () => {
+    setIsEntering(true);
+    // setIsExiting(false);
     setTimeout(() => {
-      setIsSelected((curr) => !curr);
-      setIsExiting(false);
+      setIsSelected(true);
+      // setIsExiting(false);
       setIsEntering(false);
     }, spinDuration - 20);
   };
+  const closeCard = () => {
+    // setIsEntering(false);
+    setIsExiting(true);
+    setIsSelected(false);
+    setTimeout(() => {
+      setIsExiting(false);
+      // setIsEntering(false);
+    }, spinDuration - 20);
+  };
   return (
-    <Card
-      onClick={additionalDetails ? handleClick : undefined}
-      className={clsx(classes.root, {
-        [classes.entry]: isEntering,
-        [classes.exit]: isExiting,
-        [classes.selected]: isSelected,
-      })}
-    >
-      <Box display="flex" boxSizing="border-box" alignItems="center">
-        <CardMedia
-          className={classes.img}
-          height="100"
-          component="img"
-          src={image}
-        />
-        <Box display="flex" style={{ gap: 8 }} flexWrap="wrap" overflow="auto">
-          <Typography variant="h2">{projectTitle}</Typography>
-          {Boolean(roles?.length) && (
-            <Box
-              display="flex"
-              style={{ gap: 8 }}
-              overflow="auto"
-              maxWidth="100%"
-            >
-              {roles?.map((role) => (
-                <Chip color="primary" label={role} key={role} />
-              ))}
-            </Box>
-          )}
+    <>
+      <div
+        className={clsx({ [classes.overlay]: isSelected })}
+        onClick={isSelected ? closeCard : undefined}
+      />
+      <Card
+        onClick={additionalDetails && !isSelected ? openCard : undefined}
+        className={clsx(classes.root, {
+          [classes.cursor]: additionalDetails && !isSelected,
+          [classes.entry]: isEntering,
+          [classes.exit]: isExiting,
+          [classes.selected]: isSelected,
+        })}
+      >
+        {isSelected && (
+          <IconButton className={classes.closeButton} onClick={closeCard}>
+            <CloseIcon />
+          </IconButton>
+        )}
+        <Box display="flex" boxSizing="border-box" alignItems="center">
+          <CardMedia
+            className={classes.img}
+            height="100"
+            component="img"
+            src={image}
+          />
+          <Box
+            display="flex"
+            style={{ gap: 8 }}
+            flexWrap="wrap"
+            overflow="auto"
+          >
+            <Typography variant="h2">{projectTitle}</Typography>
+            {Boolean(roles?.length) && (
+              <Box
+                display="flex"
+                style={{ gap: 8 }}
+                overflow="auto"
+                maxWidth="100%"
+              >
+                {roles?.map((role) => (
+                  <Chip color="primary" label={role} key={role} />
+                ))}
+              </Box>
+            )}
+          </Box>
         </Box>
-      </Box>
-      <Box pt={1} className={classes.details}>
-        <Typography variant="subtitle1">{details}</Typography>
-      </Box>
-      {isSelected && (
-        <Box pt={4}>
-          <Typography>{additionalDetails}</Typography>
+        <Box pt={1} className={classes.details}>
+          <Typography variant="subtitle1">{details}</Typography>
         </Box>
-      )}
-    </Card>
+        {isSelected && (
+          <Box pt={4}>
+            <Typography component={Box} pb={2}>
+              <ReactMarkdown>{additionalDetails ?? ""}</ReactMarkdown>
+            </Typography>
+            {Boolean(url) && (
+              <Link
+                className={classes.link}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Visit
+                <LinkIcon fontSize="small" />{" "}
+              </Link>
+            )}
+          </Box>
+        )}
+      </Card>
+    </>
   );
 };
 
 export default ProjectCard;
 
 const styles = makeStyles((theme) => ({
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    background: alpha(theme.palette.common.black, 0.5),
+    zIndex: 1201,
+  },
+  closeButton: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+  },
+  link: {
+    display: "inline-flex",
+    alignItems: "center",
+    fontSize: 24,
+    "& svg": {
+      marginLeft: 8,
+      transform: "rotate(-45deg)",
+    },
+  },
   root: {
+    zIndex: 0,
+    position: "relative",
     minWidth: 280,
     minHeight: 300,
     padding: theme.spacing("20px", "25px"),
@@ -112,6 +181,9 @@ const styles = makeStyles((theme) => ({
     boxOrient: "vertical",
     overflow: "hidden",
   },
+  cursor: {
+    cursor: "pointer",
+  },
   img: {
     width: 100,
     height: 100,
@@ -122,19 +194,22 @@ const styles = makeStyles((theme) => ({
     position: "fixed",
     maxHeight: "90vh",
     overflowY: "auto",
-    top: 0,
+    zIndex: 1202,
+    top: 20,
     left: 0,
     right: 0,
-    bottom: 0,
+    bottom: 20,
     margin: "0 50%",
     maxWidth: 600,
     width: "100%",
     transform: "translateX(-50%)",
   },
   entry: {
+    zIndex: 1,
     animation: `${spinDuration}ms ${theme.transitions.easing.easeInOut} 0s $cardSpinEntry forwards`,
   },
   exit: {
+    zIndex: 1,
     animation: `${spinDuration}ms ${theme.transitions.easing.easeInOut} 0s $cardSpinExit forwards`,
   },
   "@keyframes cardSpinEntry": {
