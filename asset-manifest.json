@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.178e3313.css",
-    "main.js": "/static/js/main.f52da4b5.js",
+    "main.js": "/static/js/main.682828e1.js",
     "static/media/Me3.png": "/static/media/Me3.46135c576d18455d1af1.png",
     "static/media/RhodiumLibre-Regular.ttf": "/static/media/RhodiumLibre-Regular.d131793a8f9bf8c9adf7.ttf",
     "static/media/pg_logo_1.svg": "/static/media/pg_logo_1.fa7b3b10db4ca148b1e5d127260dc089.svg",
     "index.html": "/index.html",
     "main.178e3313.css.map": "/static/css/main.178e3313.css.map",
-    "main.f52da4b5.js.map": "/static/js/main.f52da4b5.js.map"
+    "main.682828e1.js.map": "/static/js/main.682828e1.js.map"
   },
   "entrypoints": [
     "static/css/main.178e3313.css",
-    "static/js/main.f52da4b5.js"
+    "static/js/main.682828e1.js"
   ]
 }
