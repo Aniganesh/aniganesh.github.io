@@ -100,11 +100,17 @@ const ProjectCard: FC<ProjectCardProps> = ({
             )}
           </Box>
         </Box>
-        <Box pt={1} className={classes.details}>
+        <Box
+          pt={1}
+          className={clsx(classes.details, {
+            [classes.selectedDetails]: isSelected,
+          })}
+        >
           <Typography variant="subtitle1">{details}</Typography>
         </Box>
         {isSelected && (
-          <Box pt={4}>
+          <Box>
+            <Typography variant="h3">Key info: </Typography>
             <Typography component={Box} pb={2}>
               <ReactMarkdown>{additionalDetails ?? ""}</ReactMarkdown>
             </Typography>
@@ -217,6 +223,9 @@ const styles = makeStyles((theme) => ({
     display: "-webkit-box",
     boxOrient: "vertical",
     overflow: "hidden",
+  },
+  selectedDetails: {
+    overflow: "unset",
   },
   cursor: {
     cursor: "pointer",
