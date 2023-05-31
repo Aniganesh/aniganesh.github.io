@@ -20,20 +20,20 @@ const AboutMe: FC<AboutMeProps> = (props) => {
           I am a full stack web developer focusing primarily on the front-end
           with React <ReactIcon size={20} /> and typescript{" "}
           <Typescript size={20} />. I have also worked with{" "}
-          <Link href="">
+          <Link href="https://nestjs.com/">
             Nestjs <NestJSIcon size={20} />{" "}
           </Link>
           ,{" "}
-          <Link href="">
+          <Link href="https://graphql.org/">
             {" "}
             GraphQL <GraphQLIcon height={20} />{" "}
           </Link>
           ,
-          <Link>
+          <Link href="https://expressjs.com">
             Express <ExpressIcon size={18} />
           </Link>{" "}
           and{" "}
-          <Link href="">
+          <Link href="https://www.mongodb.com/">
             mongoDB <MongoDBIcon size={20} />
           </Link>
           . I daily drive an Ubuntu <UbuntuIcon size={20} /> machine and have on
