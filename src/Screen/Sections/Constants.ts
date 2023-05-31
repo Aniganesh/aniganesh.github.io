@@ -18,7 +18,7 @@ export const sidebarLinks: SidebarLink[] = [
   },
   {
     text: "Youtube",
-    link: "https://www.youtube.com/channel/UCTrowLhBSwU55fXwkFcFSBA",
+    link: "https://www.youtube.com/@thecodebuddha7246",
   },
   {
     text: "Stackoverflow",
