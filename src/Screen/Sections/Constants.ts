@@ -9,7 +9,7 @@ export const sidebarLinks: SidebarLink[] = [
     link: "https://github.com/aniganesh",
   },
   {
-    text: "Linkedin",
+    text: "LinkedIn",
     link: "https://www.linkedin.com/in/aniruddha-ganesh/",
   },
   {
@@ -17,11 +17,11 @@ export const sidebarLinks: SidebarLink[] = [
     link: "https://instagram.com/aniganesh741",
   },
   {
-    text: "Youtube",
+    text: "YouTube",
     link: "https://www.youtube.com/@thecodebuddha7246",
   },
   {
-    text: "Stackoverflow",
+    text: "StackOverflow",
     link: "https://stackoverflow.com/users/10032950/frankencode",
   },
 ];
