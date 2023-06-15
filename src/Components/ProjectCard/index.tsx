@@ -16,6 +16,7 @@ import { Project } from "@types";
 import clsx from "clsx";
 import ReactMarkdown from "react-markdown";
 import { projectToggleHandler } from "./projectToggleHandler";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
 
 export interface ProjectCardProps extends Project {}
 const spinDuration = 500;
@@ -26,6 +27,7 @@ const ProjectCard: FC<ProjectCardProps> = ({
   url,
   roles,
   additionalDetails,
+  duration,
 }) => {
   const classes = styles();
   const [isSelected, setIsSelected] = useState(false);
@@ -137,6 +139,17 @@ const ProjectCard: FC<ProjectCardProps> = ({
             Visit
             <LinkIcon fontSize="small" />{" "}
           </Link>
+        )}
+        {duration && (
+          <Box
+            display="flex"
+            pt={1}
+            color="gray"
+            alignItems="center"
+            style={{ gap: 8 }}
+          >
+            <AccessTimeIcon /> {duration}
+          </Box>
         )}
       </Card>
     </>
