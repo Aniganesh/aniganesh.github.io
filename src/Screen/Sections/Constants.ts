@@ -1,7 +1,10 @@
 import { Project, SidebarLink } from "@types";
-import chetLogo from "Assets/images/chet-logo.jpeg";
-import pgLogo from "Assets/images/pg_logo_1.svg";
-import rebnyLogo from "Assets/images/REBNY_LOGO.png";
+const chetLogo =
+  "https://ik.imagekit.io/trulyrandom/chet-logo.jpeg?updatedAt=1687013991694";
+const pgLogo =
+  "https://ik.imagekit.io/trulyrandom/pg_logo_1.svg?updatedAt=1687013992093";
+const rebnyLogo =
+  "https://ik.imagekit.io/trulyrandom/REBNY_LOGO.png?updatedAt=1687013991765";
 
 export const sidebarLinks: SidebarLink[] = [
   {
