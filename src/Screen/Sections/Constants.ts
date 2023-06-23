@@ -28,6 +28,7 @@ export const sidebarLinks: SidebarLink[] = [
     link: "https://stackoverflow.com/users/10032950/frankencode",
   },
 ];
+
 export const projects: Project[] = [
   {
     id: "rajini-lipsum",
@@ -73,8 +74,6 @@ export const projects: Project[] = [
 ];
 // const GRID_SPACING_LG = 40; const GRID_SPACING_MD = 20; const GRID_SPACING_SM = 10;
 
-// TODO: Add actual content which mention features worked on and explain the roles.
-//TODO: Replace images
 export const workProjects: Project[] = [
   {
     id: "chet",
@@ -142,5 +141,4 @@ export const workProjects: Project[] = [
     roles: ["Front-end lead", "Front-end contributor"],
     duration: "Jan 2023 - Present",
   },
-  // TODO: Add T4k and Venzi
 ];
