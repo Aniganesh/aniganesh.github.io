@@ -11,6 +11,7 @@ import {
   Chip,
   IconButton,
   Link,
+  Button,
 } from "@material-ui/core";
 import { Project } from "@types";
 import clsx from "clsx";
@@ -144,12 +145,18 @@ const ProjectCard: FC<ProjectCardProps> = ({
           <Box
             display="flex"
             pt={1}
+            mb={2}
             color="gray"
             alignItems="center"
             style={{ gap: 8 }}
           >
             <AccessTimeIcon /> {duration}
           </Box>
+        )}
+        {!!additionalDetails && !isSelected && (
+          <Button onClick={openCard} className={classes.viewMore}>
+            View more
+          </Button>
         )}
       </Card>
     </>
@@ -159,6 +166,11 @@ const ProjectCard: FC<ProjectCardProps> = ({
 export default ProjectCard;
 
 const styles = makeStyles((theme) => ({
+  viewMore: {
+    marginTop: "auto",
+    marginBottom: 0,
+    width: 'fit-content'
+  },
   projName: {
     lineHeight: 1.2,
   },
