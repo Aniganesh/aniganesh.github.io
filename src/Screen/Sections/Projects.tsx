@@ -8,7 +8,8 @@ interface ProjectsProps {}
 
 const Projects: FC<ProjectsProps> = (props) => {
   const classes = styles();
-  const { maxSm } = useCustomMediaQuery();
+  const { maxSm, isMd } = useCustomMediaQuery();
+  console.log({ isMd, maxSm });
 
   return (
     <Box boxSizing="border-box" pt={3}>
@@ -29,7 +30,8 @@ const Projects: FC<ProjectsProps> = (props) => {
             sm={12}
             md={6}
             lg={4}
-            xl={3} /* className={classes.gridItem} */
+            xl={3}
+            className={classes.gridItem}
           >
             <ProjectCard {...project} />
           </Grid>
@@ -52,7 +54,8 @@ const Projects: FC<ProjectsProps> = (props) => {
             sm={12}
             md={6}
             lg={4}
-            xl={3} /* className={classes.gridItem} */
+            xl={3}
+            className={classes.gridItem}
           >
             <ProjectCard {...project} />
           </Grid>
@@ -76,8 +79,15 @@ const styles = makeStyles((theme) => ({
       padding: theme.spacing(0, 4),
     },
   },
-  heading: {},
+  heading: {
+    paddingLeft: theme.spacing(2),
+  },
   test: {
     padding: theme.spacing(5),
+  },
+  gridItem: {
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: 14,
+    },
   },
 }));

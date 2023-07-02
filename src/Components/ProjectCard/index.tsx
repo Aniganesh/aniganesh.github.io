@@ -169,7 +169,7 @@ const styles = makeStyles((theme) => ({
   viewMore: {
     marginTop: "auto",
     marginBottom: 0,
-    width: 'fit-content'
+    width: "fit-content",
   },
   projName: {
     lineHeight: 1.2,
@@ -232,9 +232,6 @@ const styles = makeStyles((theme) => ({
     textOverflow: "ellipsis",
     overflow: "hidden",
     height: "100%",
-    [theme.breakpoints.down("sm")]: {
-      marginBottom: theme.spacing(5),
-    },
   },
   withHover: {
     "&:hover": {
