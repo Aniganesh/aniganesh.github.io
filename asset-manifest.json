@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/static/css/main.178e3313.css",
-    "main.js": "/static/js/main.a9ae26c9.js",
+    "main.js": "/static/js/main.48458346.js",
     "static/media/Me3.png": "/static/media/Me3.46135c576d18455d1af1.png",
     "static/media/RhodiumLibre-Regular.ttf": "/static/media/RhodiumLibre-Regular.d131793a8f9bf8c9adf7.ttf",
     "index.html": "/index.html",
     "main.178e3313.css.map": "/static/css/main.178e3313.css.map",
-    "main.a9ae26c9.js.map": "/static/js/main.a9ae26c9.js.map"
+    "main.48458346.js.map": "/static/js/main.48458346.js.map"
   },
   "entrypoints": [
     "static/css/main.178e3313.css",
-    "static/js/main.a9ae26c9.js"
+    "static/js/main.48458346.js"
   ]
 }
