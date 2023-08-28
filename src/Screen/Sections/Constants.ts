@@ -64,13 +64,18 @@ export const projects: Project[] = [
     details: `A simple desktop app using python and tkinter that creates a colour scheme complementing Bootstrap's BEM specification adding modifier classes`,
     url: "https://github.com/Aniganesh/Colour-Palette-creator/",
   },
-  // {
-  //   image: '4',
-  //   projectTitle: '',
-  //   // projectSubtitle: '',
-  //   details: '',
-  //   url: '',
-  // },
+  {
+    id: "indic-games",
+    image: "https://ik.imagekit.io/trulyrandom/Logo.png",
+    imgSrc: "https://ik.imagekit.io/trulyrandom/Logo.png",
+    projectTitle: "Indic games",
+    // projectSubtitle: '',
+    details:
+      "Indic games is a website and a collection of games inspired from Indian knowledge systems.",
+    url: "https://indic-games.in",
+    additionalDetails: `Indic games is a passion project I started for fun and learning.
+    The first game is "Guess who?" an indic version of the classic guess who game. I first designed the project on Figma, planned it on Github projects, architected and executed it using React, Zustand, Express, Socket.io and Contentful over the next couple of months working after hours and weekends on the project. I also wrote the content for it too in the same time period.`,
+  },
 ];
 // const GRID_SPACING_LG = 40; const GRID_SPACING_MD = 20; const GRID_SPACING_SM = 10;
 
@@ -139,6 +144,49 @@ export const workProjects: Project[] = [
     additionalDetails:
       "The Humans web app is built with React, [D3](https://d3js.org), [GSAP](https://greensock.com/), [easy-peasy](https://easy-peasy.vercel.app/) and Typescript. The admin and back-end is powered by Strapi. GSAP powers most animations on the site with D3 powering the bubble simulation on its home page.\n\nWe built the MVP of the app in less than two weeks and over the next months added features gradually to it and tweaking various features to ensure that its unique interface works across devices reliably. \n\nWhile I did regularly work on features, I also did mentor and train one other person on this project and help him add features to the front-end.",
     roles: ["Front-end lead", "Front-end contributor"],
-    duration: "Jan 2023 - Present",
+    duration: "Jan 2023 - Apr 2023",
   },
+  {
+    id: "truenose",
+    image:
+      "https://ik.imagekit.io/trulyrandom/portfolio/truenose_logo_large.png?updatedAt=1693208277270",
+    imgSrc:
+      "https://ik.imagekit.io/trulyrandom/portfolio/truenose_logo_large.png?updatedAt=1693208277270",
+    projectTitle: "TrueNose",
+    details:
+      "Truenose is a business, offering non surgical rhinoplasty to their customers. I lead a small team on this project to port their site from Vue to Nextjs and added new features to it",
+    url: "https://truenose.com",
+    additionalDetails:
+      "The Truenose app is built with Nextjs 13, incorporating SSR, image optimization and other features that come with Nextjs 13. We went with Nextjs as their previous site was built with Nuxt and Nextjs offered the same features with similar developer experience and it was something the team was familiar with. I worked with another developer to port their quiz module and fixed the various issues they'd had with their previous site. We also added transitions and some new features to their site. I was responsible for setting up the architecture, planning the delivery of features, reviewing code and mentoring the other dev on the project.",
+    duration: "Apr 2023 - Jun 2023",
+    roles: ["Front-end lead", "Front-end contributor"],
+  },
+  {
+    id: "Foundation",
+    image:
+      "https://ik.imagekit.io/trulyrandom/portfolio/foundation_logo_large.png?updatedAt=1693208294821",
+    imgSrc:
+      "https://ik.imagekit.io/trulyrandom/portfolio/foundation_logo_large.png?updatedAt=1693208294821",
+    projectTitle: "Foundation",
+    details:
+      "Foundation is a platform where people seeking therapy could find therapists that suit their needs. I worked with three other developers to build this site using Nextjs",
+    url: "https://www.myfoundation.co/",
+    additionalDetails:
+      "Foundation is another project built with Nextjs 13. I worked on adding the personalization module for users and the \"book appointment\" flow ",
+    duration: "Apr 2023 - Jun 2023",
+    roles: ["Front-end contributor"],
+  },
+  // {
+  //   id: "migo",
+  //   image:
+  //     "https://images.placeholders.dev/?width=256&height=256&text=Migo&bgColor=%23f7f6f6&textColor=%23cd65af",
+  //   imgSrc:
+  //     "https://images.placeholders.dev/?width=256&height=256&text=Migo&bgColor=%23f7f6f6&textColor=%23cd65af",
+  //   projectTitle: "Migo",
+  //   url: "https://concierge.mithyalabs.com",
+  //   details:
+  //     "Migo is a travel assistant powered by a conversational AI, fine tuned to suggest events, guides and various things to plan your next trip to any travel destination",
+  //   additionalDetails: "",
+  //   duration: "Jul 2023 - Present",
+  // },
 ];
