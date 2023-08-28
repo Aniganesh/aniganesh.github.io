@@ -11,11 +11,13 @@ const Footer: FC<FooterProps> = () => {
       <Box px={1.5}>
         <Typography variant="caption">Image credits:</Typography>
         <Box display="flex" flexDirection="column">
-          {projects.map((project) => (
-            <Link key={project.image} href={project.imgSrc} variant="caption">
-              {project.imgSrc}
-            </Link>
-          ))}
+          {projects.map((project) =>
+            project.imgSrc ? (
+              <Link key={project.image} href={project.imgSrc} variant="caption">
+                {project.imgSrc}
+              </Link>
+            ) : null
+          )}
         </Box>
       </Box>
       <Box mt={2}>
@@ -38,6 +40,6 @@ const styles = makeStyles((theme) => ({
     borderTop: `2px solid ${alpha(theme.palette.primary.main, 0.5)}`,
     marginRight: 10,
     marginTop: theme.spacing(3),
-    paddingTop: theme.spacing(3)
+    paddingTop: theme.spacing(3),
   },
 }));

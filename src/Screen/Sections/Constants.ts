@@ -67,7 +67,6 @@ export const projects: Project[] = [
   {
     id: "indic-games",
     image: "https://ik.imagekit.io/trulyrandom/Logo.png",
-    imgSrc: "https://ik.imagekit.io/trulyrandom/Logo.png",
     projectTitle: "Indic games",
     // projectSubtitle: '',
     details:
@@ -84,7 +83,6 @@ export const workProjects: Project[] = [
     id: "chet",
     image: chetLogo,
     projectTitle: "Chet",
-    imgSrc: chetLogo,
     details:
       "Chet is an e-learning platform that gives people the opportunity to learn from collections curated by experts from top companies",
     url: "https://chetnetwork.com/",
@@ -97,7 +95,6 @@ export const workProjects: Project[] = [
     id: "pg",
     image: pgLogo,
     projectTitle: "Playground",
-    imgSrc: pgLogo,
     details:
       "Playground is a social media style site for creators to connect with their audience and advertise their events, merchandise, podcasts, content and much more.",
     url: "https://playgroundapp.com/",
@@ -109,7 +106,6 @@ export const workProjects: Project[] = [
     id: "chardan",
     image: "https://www.chardan.com/img/apple-touch-icon.png",
     projectTitle: "Chardan website",
-    imgSrc: "https://www.chardan.com/img/apple-touch-icon.png",
     details:
       'Built on a custom framework, the chardan website and "micro sites" serve a myriad different functions; from being a way for Chardan to communicate with the general public and various stakeholders by showcasing their projects to helping them comply with laws',
     url: "https://chardan.com",
@@ -122,7 +118,6 @@ export const workProjects: Project[] = [
     id: "rebny",
     image: rebnyLogo,
     projectTitle: "REBNY lease store",
-    imgSrc: rebnyLogo,
     details:
       "Rebny lease store is a web app that helps Real Estate Board of New York (REBNY) customers create customised leases for their properties within New York. REBNY's legal team would make templates for various types of commercial and residential leases which their customers could use to create custom leases from through the lease store interface",
     url: "https://lease-store.rebny.com",
@@ -136,8 +131,6 @@ export const workProjects: Project[] = [
     image:
       "https://images.squarespace-cdn.com/content/v1/62a0ff769bb0454090ba7a78/1676657933490-W71Z4TINOBT13RSCKAIU/favicon.ico?format=100w",
     projectTitle: "Humans",
-    imgSrc:
-      "https://images.squarespace-cdn.com/content/v1/62a0ff769bb0454090ba7a78/1676657933490-W71Z4TINOBT13RSCKAIU/favicon.ico?format=100w",
     url: "https://humans.inc",
     details:
       "Humans is a web app and an IRL way to get like minded people together and form communities. The web app serves as a way to connect with people with similar interests.",
@@ -149,8 +142,6 @@ export const workProjects: Project[] = [
   {
     id: "truenose",
     image:
-      "https://ik.imagekit.io/trulyrandom/portfolio/truenose_logo_large.png?updatedAt=1693208277270",
-    imgSrc:
       "https://ik.imagekit.io/trulyrandom/portfolio/truenose_logo_large.png?updatedAt=1693208277270",
     projectTitle: "TrueNose",
     details:
@@ -165,22 +156,18 @@ export const workProjects: Project[] = [
     id: "Foundation",
     image:
       "https://ik.imagekit.io/trulyrandom/portfolio/foundation_logo_large.png?updatedAt=1693208294821",
-    imgSrc:
-      "https://ik.imagekit.io/trulyrandom/portfolio/foundation_logo_large.png?updatedAt=1693208294821",
     projectTitle: "Foundation",
     details:
       "Foundation is a platform where people seeking therapy could find therapists that suit their needs. I worked with three other developers to build this site using Nextjs",
     url: "https://www.myfoundation.co/",
     additionalDetails:
-      "Foundation is another project built with Nextjs 13. I worked on adding the personalization module for users and the \"book appointment\" flow ",
+      'Foundation is another project built with Nextjs 13. I worked on adding the personalization module for users and the "book appointment" flow ',
     duration: "Apr 2023 - Jun 2023",
     roles: ["Front-end contributor"],
   },
   // {
   //   id: "migo",
   //   image:
-  //     "https://images.placeholders.dev/?width=256&height=256&text=Migo&bgColor=%23f7f6f6&textColor=%23cd65af",
-  //   imgSrc:
   //     "https://images.placeholders.dev/?width=256&height=256&text=Migo&bgColor=%23f7f6f6&textColor=%23cd65af",
   //   projectTitle: "Migo",
   //   url: "https://concierge.mithyalabs.com",

@@ -10,7 +10,7 @@ export interface Project {
   // projectSubtitle: string;
   details: string;
   url: string;
-  imgSrc: string;
+  imgSrc?: string;
   roles?: string[];
   additionalDetails?: string;
   duration?: string;
