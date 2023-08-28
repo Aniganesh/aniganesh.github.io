@@ -130,17 +130,6 @@ const ProjectCard: FC<ProjectCardProps> = ({
             )}
           </Box>
         )}
-        {!additionalDetails && Boolean(url) && (
-          <Link
-            className={clsx(classes.link, classes.smallLink)}
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Visit
-            <LinkIcon fontSize="small" />{" "}
-          </Link>
-        )}
         {duration && (
           <Box
             display="flex"
@@ -153,11 +142,31 @@ const ProjectCard: FC<ProjectCardProps> = ({
             <AccessTimeIcon /> {duration}
           </Box>
         )}
-        {!!additionalDetails && !isSelected && (
-          <Button onClick={openCard} className={classes.viewMore}>
-            View more
-          </Button>
-        )}
+        <Box
+          display="flex"
+          className={classes.alignBottom}
+          alignItems="center"
+          justifyContent="start"
+        >
+          {Boolean(url) && !isSelected && (
+            <Button
+              component={Link}
+              className={clsx(classes.link, classes.smallLink)}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              Visit
+              <LinkIcon fontSize="small" />{" "}
+            </Button>
+          )}
+          {!!additionalDetails && !isSelected && (
+            <Button onClick={openCard}>View more</Button>
+          )}
+        </Box>
       </Card>
     </>
   );
@@ -166,7 +175,7 @@ const ProjectCard: FC<ProjectCardProps> = ({
 export default ProjectCard;
 
 const styles = makeStyles((theme) => ({
-  viewMore: {
+  alignBottom: {
     marginTop: "auto",
     marginBottom: 0,
     width: "fit-content",
@@ -211,6 +220,8 @@ const styles = makeStyles((theme) => ({
     display: "flex",
     marginBottom: 0,
     fontSize: 16,
+    color: theme.palette.primary.main,
+    textTransform: "unset",
   },
   root: {
     zIndex: 0,
