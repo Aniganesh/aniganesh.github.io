@@ -37,5 +37,7 @@ const styles = makeStyles((theme) => ({
   root: {
     borderTop: `2px solid ${alpha(theme.palette.primary.main, 0.5)}`,
     marginRight: 10,
+    marginTop: theme.spacing(3),
+    paddingTop: theme.spacing(3)
   },
 }));
