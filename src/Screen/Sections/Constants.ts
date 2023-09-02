@@ -71,7 +71,7 @@ export const projects: Project[] = [
     // projectSubtitle: '',
     details:
       "Indic games is a website and a collection of games inspired from Indian knowledge systems.",
-    url: "https://indic-games.in",
+    url: "https://indic-games.onrender.com",
     additionalDetails: `Indic games is a passion project I started for fun and learning.
     The first game is "Guess who?" an indic version of the classic guess who game. I first designed the project on Figma, planned it on Github projects, architected and executed it using React, Zustand, Express, Socket.io and Contentful over the next couple of months working after hours and weekends on the project. I also wrote the content for it in the same time period.`,
   },
