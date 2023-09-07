@@ -17,9 +17,7 @@ const AboutMe: FC<AboutMeProps> = (props) => {
       <Typography variant="h2">Who am I?:</Typography>
       <Box p={1}>
         <Typography variant="h2">
-          I am a full stack web developer focusing primarily on the front-end
-          with React <ReactIcon size={20} /> and typescript{" "}
-          <Typescript size={20} />. I have also worked with{" "}
+          I am a full stack web developer specializing in the MERN stack. I have also worked with{" "}
           <Link href="https://nestjs.com/">
             Nestjs <NestJSIcon size={20} />{" "}
           </Link>
@@ -37,8 +35,7 @@ const AboutMe: FC<AboutMeProps> = (props) => {
             mongoDB <MongoDBIcon size={20} />
           </Link>
           . I daily drive an Ubuntu <UbuntuIcon size={20} /> machine and have on
-          occassion written shell scripts and used the aws cli to interact with
-          S3 <AmazonS3Icon size={20} /> buckets.
+          occassion written shell scripts and used the aws cli on occassion.
         </Typography>
       </Box>
     </Box>
