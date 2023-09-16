@@ -17,7 +17,6 @@ const IntroHeadshot: FC<IntroHeadshotProps> = (props) => {
       <Box boxSizing="border-box">
         <Typography variant="h1">Aniruddha Ganesh</Typography>
         <Typography variant="h2">Full stack web developer</Typography>
-        <Typography variant="h2">Mithyalabs</Typography>
       </Box>
     </Box>
   );
