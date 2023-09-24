@@ -2,7 +2,7 @@ import { Project, SidebarLink } from "@types";
 const chetLogo =
   "https://ik.imagekit.io/trulyrandom/chet-logo.jpeg?updatedAt=1687013991694";
 const pgLogo =
-  "https://ik.imagekit.io/trulyrandom/pg_logo_1.svg?updatedAt=1687013992093";
+  "https://ik.imagekit.io/trulyrandom/portfolio/pg_logo_1.svg?updatedAt=1693208197553";
 const rebnyLogo =
   "https://ik.imagekit.io/trulyrandom/REBNY_LOGO.png?updatedAt=1687013991765";
 
