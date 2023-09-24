@@ -66,7 +66,7 @@ export const projects: Project[] = [
   },
   {
     id: "indic-games",
-    image: "https://ik.imagekit.io/trulyrandom/Logo.png",
+    image: "https://indic-games.in/logo.svg",
     projectTitle: "Indic games",
     // projectSubtitle: '',
     details:
