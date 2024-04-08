@@ -17,7 +17,7 @@ export const sidebarLinks: SidebarLink[] = [
   },
   {
     text: "Instagram",
-    link: "https://instagram.com/aniganesh741",
+    link: "https://instagram.com/indicgames",
   },
   {
     text: "YouTube",
