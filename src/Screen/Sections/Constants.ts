@@ -1,10 +1,14 @@
 import { Project, SidebarLink } from "@types";
 const chetLogo =
-  "https://ik.imagekit.io/trulyrandom/chet-logo.jpeg?updatedAt=1687013991694";
+  "/projects/chet-logo.svg";
 const pgLogo =
   "https://ik.imagekit.io/trulyrandom/portfolio/pg_logo_1.svg?updatedAt=1693208197553";
 const rebnyLogo =
   "https://ik.imagekit.io/trulyrandom/REBNY_LOGO.png?updatedAt=1687013991765";
+const chardanLogo = "/projects/Chardan-Orig-Logo.png";
+const ren3Logo = "/projects/ren3-logo.svg";
+const mithyaUiLogo = "/projects/mithya-ui-logo.svg";
+const clinchItLogo = "/projects/clinchit-logo.svg";
 
 export const sidebarLinks: SidebarLink[] = [
   {
@@ -80,6 +84,50 @@ export const projects: Project[] = [
 
 export const workProjects: Project[] = [
   {
+    id: "ren3",
+    image: ren3Logo,
+    projectTitle: "ReN3",
+    details:
+      "An enterprise AI platform for ACL-aware knowledge ingestion, retrieval, agent workflows, document processing, and workspace administration.",
+    url: "",
+    roles: ["Frontend developer"],
+    additionalDetails: `ReN3 is a multi-tenant enterprise AI platform that brings together knowledge ingestion, retrieval, agent workflows, document processing, streaming conversations, and workspace administration.
+
+I worked across the web console and platform-facing frontend, building streaming chat, SharePoint knowledge-source flows, workspace administration, citation navigation, file exploration, artifact downloads, and workspace-scoped conversation behavior. I also worked on audit visibility, timestamps, file title editing, citation previews, and the interaction details that make a complex AI platform understandable to users.
+
+The wider platform includes API gateways, control-plane services, ingestion and indexing workers, shared libraries for ACLs, storage, streaming, and orchestration, as well as integrations for systems such as SharePoint, Salesforce, MCP servers, and databases. My work sits at the boundary between product UX and the distributed systems that power it.`,
+    duration: "Nov 2024 - Present",
+  },
+  {
+    id: "mithya-ui-registry",
+    image: mithyaUiLogo,
+    projectTitle: "Mithya UI Registry",
+    details:
+      "A spec-driven UI component registry and CLI for turning design handoffs into installable CVA-based Tailwind components.",
+    url: "",
+    roles: ["Frontend developer"],
+    additionalDetails: `Mithya UI Registry is a spec-driven component system that turns design handoffs into installable, typed UI components. It uses component specifications and theme tokens to generate CVA-based Tailwind components while keeping the design source separate from the generated consumer code.
+
+I worked on the component-generation and consumer workflows, including variants, boolean modifiers, nested element styles, component manifests, and the CLI commands used to initialise, install, update, and inspect components. I also contributed to individual components, documentation, and the playground used to verify the complete design-handoff-to-consumer cycle.
+
+The goal is to make UI implementation more repeatable: design changes can flow through structured specifications and produce components that remain consistent across products without copying one-off implementations by hand.`,
+    duration: "2026 - Present",
+  },
+  {
+    id: "clinchit",
+    image: clinchItLogo,
+    projectTitle: "ClinchIt",
+    details:
+      "An AI sales platform for enterprise teams, combining account intelligence, conversational agents, RFP response generation, call assistance, live-call analysis, and health and sentiment analytics.",
+    url: "https://clinchit.io",
+    roles: ["Full-stack developer"],
+    additionalDetails: `ClinchIt is an AI sales platform for enterprise teams. It combines account intelligence, conversational agents, RFP response generation, call assistance, live-call analysis, and health and sentiment analytics into a single product used by approximately 10 enterprise customers.
+
+I worked across the frontend and backend to extend streaming account chat, agent tools, sales metrics, and integrations with Gmail, Asana, HubSpot, Snowflake, Microsoft Teams, and Zoom. I also worked on features that connected conversational context with account-level insights, helping sales teams understand customer health and act on information from the systems they already use.
+
+The product required more than simply adding an LLM-powered chat box. It involved integrating external systems, presenting long-running and streaming operations clearly, and building interfaces that made AI-generated analysis useful inside an existing sales workflow.`,
+  },
+  {
     id: "chet",
     image: chetLogo,
     projectTitle: "Chet",
@@ -104,7 +152,7 @@ export const workProjects: Project[] = [
   },
   {
     id: "chardan",
-    image: "https://www.chardan.com/img/apple-touch-icon.png",
+    image: chardanLogo,
     projectTitle: "Chardan website",
     details:
       'Built on a custom framework, the chardan website and "micro sites" serve a myriad different functions; from being a way for Chardan to communicate with the general public and various stakeholders by showcasing their projects to helping them comply with laws',
