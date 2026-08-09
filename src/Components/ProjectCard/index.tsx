@@ -268,6 +268,7 @@ const styles = makeStyles((theme) => ({
     height: 100,
     borderRadius: 15,
     marginRight: theme.spacing(1.5),
+    objectFit: "contain",
   },
   selected: {
     position: "fixed",
