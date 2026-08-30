@@ -1,11 +1,44 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, X } from "@phosphor-icons/react";
-import { motion, MotionConfig } from "motion/react";
+import {
+  forceCollide,
+  forceLink,
+  forceManyBody,
+  forceSimulation,
+  forceX,
+  forceY,
+} from "d3-force";
 import ReactMarkdown from "react-markdown";
 import ProfileImage from "Assets/images/Me3.png";
 import { contactItems, portfolioProjects, profileContent, toolkitItems } from "./data";
 import type { ContactItem, PortfolioIcon, PortfolioTab, ProjectModalState, ToolkitItem } from "./types";
 import "./styles.css";
+
+interface SimulationNode {
+  id: string;
+  targetX: number;
+  targetY: number;
+  radius: number;
+  driftPhase: number;
+  driftSpeed: number;
+  x: number;
+  y: number;
+  vx?: number;
+  vy?: number;
+  fx?: number | null;
+  fy?: number | null;
+}
+
+interface SimulationLink {
+  source: string;
+  target: string;
+}
+
+interface SimulationBounds {
+  width: number;
+  height: number;
+  padding: number;
+}
 
 const PROFILE_IMAGE = ProfileImage;
 const TABS: Array<{ id: PortfolioTab; label: string }> = [
@@ -25,15 +58,52 @@ const positionsFor = (count: number) =>
     };
   });
 
+const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
+
+const createBoundsForce = (bounds: SimulationBounds) => {
+  let nodes: SimulationNode[] = [];
+  const force = () => {
+    nodes.forEach((node) => {
+      if (node.fx != null || node.fy != null || node.x == null || node.y == null) return;
+      node.x = clamp(node.x, bounds.padding, bounds.width - bounds.padding);
+      node.y = clamp(node.y, bounds.padding, bounds.height - bounds.padding);
+    });
+  };
+  force.initialize = (nextNodes: SimulationNode[]) => { nodes = nextNodes; };
+  return force;
+};
+
+const createDriftForce = (reducedMotion: boolean) => {
+  let nodes: SimulationNode[] = [];
+  const force = () => {
+    if (reducedMotion) return;
+    const time = performance.now() / 1000;
+    nodes.forEach((node) => {
+      if (node.fx != null || node.fy != null) return;
+      node.vx = (node.vx ?? 0) + Math.cos(time * node.driftSpeed + node.driftPhase) * 0.09;
+      node.vy = (node.vy ?? 0) + Math.sin(time * node.driftSpeed * 0.83 + node.driftPhase) * 0.09;
+    });
+  };
+  force.initialize = (nextNodes: SimulationNode[]) => { nodes = nextNodes; };
+  return force;
+};
+
 const NetworkPortfolio: FC = () => {
   const [activeTab, setActiveTab] = useState<PortfolioTab>("projects");
   const [modal, setModal] = useState<ProjectModalState>({ isOpen: false, project: null });
   const [profileModalOpen, setProfileModalOpen] = useState(false);
   const [selectedToolkit, setSelectedToolkit] = useState<ToolkitItem | null>(null);
   const [selectedContact, setSelectedContact] = useState<ContactItem | null>(null);
-  const [dragOffsets, setDragOffsets] = useState<Record<string, { x: number; y: number }>>({});
+  const [simulatedPositions, setSimulatedPositions] = useState<Record<string, { x: number; y: number }>>({});
+  const [reducedMotion, setReducedMotion] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
   const networkNodesRef = useRef<HTMLDivElement | null>(null);
   const lastFocusedNode = useRef<HTMLElement | null>(null);
+  const simulationRef = useRef<ReturnType<typeof forceSimulation<SimulationNode>> | null>(null);
+  const simulationNodesRef = useRef<Map<string, SimulationNode>>(new Map());
+  const simulationBoundsRef = useRef<SimulationBounds | null>(null);
+  const dragState = useRef<{ id: string; pointerId: number; offsetX: number; offsetY: number } | null>(null);
 
   const items = useMemo(() => {
     if (activeTab === "toolkit") return toolkitItems;
@@ -48,34 +118,176 @@ const NetworkPortfolio: FC = () => {
     setSelectedContact(null);
     setModal({ isOpen: false, project: null });
     setProfileModalOpen(false);
-    setDragOffsets({});
   }, [activeTab]);
 
-  const updateDragOffset = (id: string, x: number, y: number) => {
-    const bounds = networkNodesRef.current?.getBoundingClientRect();
-    if (!bounds?.width || !bounds.height) return;
-    setDragOffsets((current) => ({
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const handleChange = () => setReducedMotion(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  useEffect(() => {
+    const element = networkNodesRef.current;
+    if (!element) return undefined;
+
+    let frameId: number | null = null;
+    let simulation: ReturnType<typeof forceSimulation<SimulationNode>> | null = null;
+
+    const publishPositions = () => {
+      if (frameId !== null) return;
+      frameId = window.requestAnimationFrame(() => {
+        frameId = null;
+        const bounds = simulationBoundsRef.current;
+        if (!bounds) return;
+        const nextPositions: Record<string, { x: number; y: number }> = {};
+        simulationNodesRef.current.forEach((node) => {
+          if (node.id === "profile" || node.x == null || node.y == null) return;
+          nextPositions[node.id] = {
+            x: (node.x / bounds.width) * 100,
+            y: (node.y / bounds.height) * 100,
+          };
+        });
+        setSimulatedPositions(nextPositions);
+      });
+    };
+
+    const initialize = () => {
+      const rect = element.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+
+      simulation?.stop();
+      const mobile = window.matchMedia("(max-width: 700px)").matches || rect.width < 500;
+      const nodeRadius = mobile ? 32 : clamp(Math.min(rect.width, rect.height) * 0.05, 40, 54);
+      const centerRadius = mobile ? 48 : clamp(Math.min(rect.width, rect.height) * 0.11, 72, 110);
+      const bounds: SimulationBounds = {
+        width: rect.width,
+        height: rect.height,
+        padding: nodeRadius + 4,
+      };
+      simulationBoundsRef.current = bounds;
+
+      const centerNode: SimulationNode = {
+        id: "profile",
+        targetX: rect.width / 2,
+        targetY: rect.height / 2,
+        radius: centerRadius,
+        driftPhase: 0,
+        driftSpeed: 0,
+        x: rect.width / 2,
+        y: rect.height / 2,
+        fx: rect.width / 2,
+        fy: rect.height / 2,
+      };
+      const surroundingNodes: SimulationNode[] = items.map((item, index) => {
+        const target = positions[index];
+        return {
+          id: item.id,
+          targetX: (target.x / 100) * rect.width,
+          targetY: (target.y / 100) * rect.height,
+          radius: nodeRadius + (mobile ? 7 : 12),
+          driftPhase: index * 1.73,
+          driftSpeed: 0.6 + (index % 4) * 0.11,
+          x: (target.x / 100) * rect.width,
+          y: (target.y / 100) * rect.height,
+        };
+      });
+      const nodes = [centerNode, ...surroundingNodes];
+      simulationNodesRef.current = new Map(nodes.map((node) => [node.id, node]));
+      setSimulatedPositions(Object.fromEntries(surroundingNodes.map((node) => [node.id, {
+        x: (node.x / rect.width) * 100,
+        y: (node.y / rect.height) * 100,
+      }])));
+
+      const links: SimulationLink[] = surroundingNodes.map((node) => ({ source: "profile", target: node.id }));
+      const linkForce = forceLink<SimulationNode, SimulationLink>(links)
+        .id((node) => node.id)
+        .distance(Math.min(rect.width, rect.height) * (mobile ? 0.3 : 0.34))
+        .strength(0.015);
+
+      simulation = forceSimulation<SimulationNode>(nodes)
+        .velocityDecay(mobile ? 0.44 : 0.5)
+        .force("link", linkForce)
+        .force("charge", forceManyBody<SimulationNode>().strength(mobile ? -44 : -82).distanceMax(Math.max(rect.width, rect.height) * 1.25))
+        .force("collide", forceCollide<SimulationNode>().radius((node) => node.radius).strength(0.85).iterations(2))
+        .force("target-x", forceX<SimulationNode>((node) => node.targetX).strength(mobile ? 0.06 : 0.038))
+        .force("target-y", forceY<SimulationNode>((node) => node.targetY).strength(mobile ? 0.06 : 0.038))
+        .force("bounds", createBoundsForce(bounds))
+        .force("drift", createDriftForce(reducedMotion))
+        .on("tick", publishPositions);
+      simulationRef.current = simulation;
+
+      if (reducedMotion) {
+        simulation.stop();
+        simulation.tick(90);
+        publishPositions();
+      } else {
+        simulation.alpha(0.95).alphaTarget(0.08).restart();
+      }
+    };
+
+    initialize();
+    const observer = new ResizeObserver(initialize);
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+      simulation?.stop();
+      simulationRef.current = null;
+      simulationNodesRef.current = new Map();
+      simulationBoundsRef.current = null;
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
+    };
+  }, [items, positions, reducedMotion]);
+
+  const handleNodePointerDown = (id: string, event: React.PointerEvent<HTMLElement>) => {
+    const node = simulationNodesRef.current.get(id);
+    const bounds = simulationBoundsRef.current;
+    if (!node || !bounds) return;
+    const networkRect = networkNodesRef.current?.getBoundingClientRect();
+    if (!networkRect) return;
+    const pointerX = event.clientX - networkRect.left;
+    const pointerY = event.clientY - networkRect.top;
+    node.fx = node.x;
+    node.fy = node.y;
+    node.vx = 0;
+    node.vy = 0;
+    dragState.current = {
+      id,
+      pointerId: event.pointerId,
+      offsetX: node.x - pointerX,
+      offsetY: node.y - pointerY,
+    };
+    simulationRef.current?.alphaTarget(reducedMotion ? 0.08 : 0.22).restart();
+  };
+
+  const handleNodePointerMove = (id: string, event: React.PointerEvent<HTMLElement>) => {
+    const currentDrag = dragState.current;
+    const node = simulationNodesRef.current.get(id);
+    const bounds = simulationBoundsRef.current;
+    const networkRect = networkNodesRef.current?.getBoundingClientRect();
+    if (!currentDrag || currentDrag.id !== id || currentDrag.pointerId !== event.pointerId || !node || !bounds || !networkRect) return;
+    node.fx = clamp(event.clientX - networkRect.left + currentDrag.offsetX, bounds.padding, bounds.width - bounds.padding);
+    node.fy = clamp(event.clientY - networkRect.top + currentDrag.offsetY, bounds.padding, bounds.height - bounds.padding);
+    node.x = node.fx;
+    node.y = node.fy;
+    setSimulatedPositions((current) => ({
       ...current,
-      [id]: { x: (x / bounds.width) * 100, y: (y / bounds.height) * 100 },
+      [id]: { x: (node.x / bounds.width) * 100, y: (node.y / bounds.height) * 100 },
     }));
   };
 
-  const clearDragOffset = (id: string) => {
-    setDragOffsets((current) => {
-      if (!current[id]) return current;
-      const next = { ...current };
-      delete next[id];
-      return next;
-    });
+  const handleNodePointerEnd = (id: string, event: React.PointerEvent<HTMLElement>) => {
+    const currentDrag = dragState.current;
+    const node = simulationNodesRef.current.get(id);
+    if (!currentDrag || currentDrag.id !== id || currentDrag.pointerId !== event.pointerId || !node) return;
+    node.fx = null;
+    node.fy = null;
+    dragState.current = null;
+    simulationRef.current?.alphaTarget(reducedMotion ? 0 : 0.08).restart();
   };
 
-  const linePositions = positions.map((position, index) => {
-    const offset = dragOffsets[items[index].id];
-    return {
-      x: position.x + (offset?.x ?? 0),
-      y: position.y + (offset?.y ?? 0),
-    };
-  });
+  const linePositions = items.map((item, index) => simulatedPositions[item.id] ?? positions[index]);
 
   const openProject = (project: (typeof portfolioProjects)[number], node: HTMLElement) => {
     lastFocusedNode.current = node;
@@ -98,7 +310,6 @@ const NetworkPortfolio: FC = () => {
   };
 
   return (
-    <MotionConfig reducedMotion="user">
     <main className="portfolio-shell" data-testid="network-portfolio">
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
@@ -166,7 +377,7 @@ const NetworkPortfolio: FC = () => {
 
         <div className="network-nodes" data-testid="network-nodes" ref={networkNodesRef}>
           {items.map((item, index) => {
-            const position = positions[index];
+            const position = simulatedPositions[item.id] ?? positions[index];
             const label = "projectTitle" in item ? item.projectTitle : item.label;
             const icon = "projectTitle" in item ? undefined : item.icon;
             return (
@@ -183,9 +394,9 @@ const NetworkPortfolio: FC = () => {
                   if (activeTab === "toolkit") setSelectedToolkit(item as ToolkitItem);
                   if (activeTab === "contact") setSelectedContact(item as ContactItem);
                 }}
-                wobbleIndex={index}
-                onDrag={(x, y) => updateDragOffset(item.id, x, y)}
-                onDragTransitionEnd={() => clearDragOffset(item.id)}
+                onPointerDown={(event) => handleNodePointerDown(item.id, event)}
+                onPointerMove={(event) => handleNodePointerMove(item.id, event)}
+                onPointerEnd={(event) => handleNodePointerEnd(item.id, event)}
                 url={activeTab === "contact" ? (item as ContactItem).url : undefined}
               />
             );
@@ -203,7 +414,6 @@ const NetworkPortfolio: FC = () => {
       {profileModalOpen && <ProfileModal onClose={closeProfileModal} />}
       {modal.isOpen && modal.project && <ProjectModal project={modal.project} onClose={closeModal} />}
     </main>
-    </MotionConfig>
   );
 };
 
@@ -215,21 +425,20 @@ interface NodeButtonProps {
   position: { x: number; y: number };
   kind: PortfolioTab;
   onClick: (event: React.MouseEvent<HTMLElement>) => void;
-  onDrag: (x: number, y: number) => void;
-  onDragTransitionEnd: () => void;
-  wobbleIndex: number;
+  onPointerDown: (event: React.PointerEvent<HTMLElement>) => void;
+  onPointerMove: (event: React.PointerEvent<HTMLElement>) => void;
+  onPointerEnd: (event: React.PointerEvent<HTMLElement>) => void;
   url?: string;
 }
 
-const NodeButton: FC<NodeButtonProps> = ({ id, label, icon: Icon, image, position, kind, onClick, onDrag, onDragTransitionEnd, wobbleIndex, url }) => {
+const NodeButton: FC<NodeButtonProps> = ({ id, label, icon: Icon, image, position, kind, onClick, onPointerDown, onPointerMove, onPointerEnd, url }) => {
   const iconImage = image ?? (typeof Icon === "string" ? Icon : undefined);
   const IconComponent = typeof Icon === "string" ? undefined : Icon;
   const suppressClick = useRef(false);
+  const pointerState = useRef<{ pointerId: number; startX: number; startY: number; moved: boolean } | null>(null);
   const placementStyle = {
     left: `${position.x}%`,
     top: `${position.y}%`,
-    "--wobble-delay": `${(wobbleIndex % 5) * -0.55}s`,
-    "--wobble-duration": `${5.2 + (wobbleIndex % 4) * 0.7}s`,
   } as React.CSSProperties;
 
   const contents = iconImage ? (
@@ -240,11 +449,29 @@ const NodeButton: FC<NodeButtonProps> = ({ id, label, icon: Icon, image, positio
     <span className="node-icon">{IconComponent && <IconComponent size={34} weight="duotone" />}</span>
   );
 
-  const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: { offset: { x: number; y: number } }) => {
-    if (Math.hypot(info.offset.x, info.offset.y) > 4) {
+  const handlePointerDown = (event: React.PointerEvent<HTMLElement>) => {
+    pointerState.current = { pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, moved: false };
+    event.currentTarget.setPointerCapture(event.pointerId);
+    onPointerDown(event);
+  };
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
+    const currentPointer = pointerState.current;
+    if (!currentPointer || currentPointer.pointerId !== event.pointerId) return;
+    if (Math.hypot(event.clientX - currentPointer.startX, event.clientY - currentPointer.startY) > 4) currentPointer.moved = true;
+    onPointerMove(event);
+  };
+
+  const handlePointerEnd = (event: React.PointerEvent<HTMLElement>) => {
+    const currentPointer = pointerState.current;
+    if (!currentPointer || currentPointer.pointerId !== event.pointerId) return;
+    if (currentPointer.moved) {
       suppressClick.current = true;
       window.setTimeout(() => { suppressClick.current = false; }, 350);
     }
+    onPointerEnd(event);
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    pointerState.current = null;
   };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -256,35 +483,24 @@ const NodeButton: FC<NodeButtonProps> = ({ id, label, icon: Icon, image, positio
     onClick(event);
   };
 
-  const motionProps = {
-    drag: true as const,
-    dragConstraints: { top: -120, right: 120, bottom: 120, left: -120 },
-    dragElastic: 0.18,
-    dragMomentum: false,
-    dragSnapToOrigin: true,
-    whileDrag: { scale: 1.08 },
-    whileHover: { scale: 1.08 },
-    onDragStart: () => { suppressClick.current = true; },
-    onDrag: (_event: MouseEvent | TouchEvent | PointerEvent, info: { offset: { x: number; y: number } }) => onDrag(info.offset.x, info.offset.y),
-    onDragEnd: handleDragEnd,
-    onDragTransitionEnd,
-  };
-
   if (url) {
     return (
       <div className="node-placement" style={placementStyle}>
-        <motion.a
-          {...motionProps}
+        <a
           className={`network-node ${kind}-node`}
           data-testid={`network-node-${id}`}
           href={url}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Open ${label}`}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerEnd}
+          onPointerCancel={handlePointerEnd}
           onClick={handleClick}
         >
           {contents}
-        </motion.a>
+        </a>
         <span className="node-label" aria-hidden="true">{label}</span>
       </div>
     );
@@ -292,16 +508,19 @@ const NodeButton: FC<NodeButtonProps> = ({ id, label, icon: Icon, image, positio
 
   return (
     <div className="node-placement" style={placementStyle}>
-      <motion.button
-        {...motionProps}
+      <button
         className={`network-node ${kind}-node ${id === "express" ? "express-node" : ""}`}
         data-testid={`network-node-${id}`}
         type="button"
         aria-label={label}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerEnd}
+        onPointerCancel={handlePointerEnd}
         onClick={handleClick}
       >
         {contents}
-      </motion.button>
+      </button>
       <span className="node-label" aria-hidden="true">{label}</span>
     </div>
   );

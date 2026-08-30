@@ -7,7 +7,8 @@ const rebnyLogo =
   "/favicons/rebny.ico";
 const chardanLogo = "/projects/Chardan-Orig-Logo.png";
 const ren3Logo = "/projects/ren3-logo.svg";
-const mithyaUiLogo = "/projects/mithya-ui-logo.svg";
+const comakeLogo = "/projects/comake-logo.gif";
+const lexsitusLogo = "/projects/lexsitus.ico";
 const clinchItLogo = "/projects/clinchit-logo.svg";
 
 export const sidebarLinks: SidebarLink[] = [
@@ -47,22 +48,37 @@ export const workProjects: Project[] = [
 I worked across the web console and platform-facing frontend, building streaming chat, SharePoint knowledge-source flows, workspace administration, citation navigation, file exploration, artifact downloads, and workspace-scoped conversation behavior. I also worked on audit visibility, timestamps, file title editing, citation previews, and the interaction details that make a complex AI platform understandable to users.
 
 The wider platform includes API gateways, control-plane services, ingestion and indexing workers, shared libraries for ACLs, storage, streaming, and orchestration, as well as integrations for systems such as SharePoint, Salesforce, MCP servers, and databases. My work sits at the boundary between product UX and the distributed systems that power it.`,
-    duration: "Nov 2024 - Present",
+    duration: "Dec 2025 - Present",
   },
   {
-    id: "mithya-ui-registry",
-    image: mithyaUiLogo,
-    projectTitle: "Mithya UI Registry",
+    id: "comake",
+    image: comakeLogo,
+    projectTitle: "Comake",
     details:
-      "A spec-driven UI component registry and CLI for turning design handoffs into installable CVA-based Tailwind components.",
+      "An enterprise knowledge-platform ecosystem for modeling data, capabilities, and composable interfaces across a shared semantic layer.",
     url: "",
-    roles: ["Frontend developer"],
-    additionalDetails: `Mithya UI Registry is a spec-driven component system that turns design handoffs into installable, typed UI components. It uses component specifications and theme tokens to generate CVA-based Tailwind components while keeping the design source separate from the generated consumer code.
+    roles: ["Frontend engineer"],
+    additionalDetails: `I worked on the frontend architecture for Comake's Standard Knowledge Platform and MeshUI, building the interface layer for a schema-driven, interoperable data system. The work spanned entity and schema management, configurable data views, UI composition and page builders, workflow editing, and the client-side services connecting these surfaces to the platform's APIs and Standard Knowledge Language.
 
-I worked on the component-generation and consumer workflows, including variants, boolean modifiers, nested element styles, component manifests, and the CLI commands used to initialise, install, update, and inspect components. I also contributed to individual components, documentation, and the playground used to verify the complete design-handoff-to-consumer cycle.
+My contributions focused on reusable state and interaction patterns for complex data products, including table navigation, sticky headers, entity and media rendering, autosave and row mutation, plugin contracts, issue views, and incremental loading. I also worked at the integration boundary between the shared SDK and engine services and the product UI, improving data-fetching and update behavior across the platform.
 
-The goal is to make UI implementation more repeatable: design changes can flow through structured specifications and produce components that remain consistent across products without copying one-off implementations by hand.`,
-    duration: "2026 - Present",
+The goal was to make a highly configurable platform feel coherent and dependable while allowing teams to compose new domain-specific experiences without duplicating core UI behavior.`,
+    duration: "Nov 2024 - Apr 2025",
+  },
+  {
+    id: "lexsitus",
+    image: lexsitusLogo,
+    projectTitle: "Lexsitus",
+    details:
+      "A multilingual legal-information platform for researching, analyzing, and learning about international criminal law.",
+    url: "https://cilrap-lexsitus.org",
+    roles: ["Full-stack engineer"],
+    additionalDetails: `I worked across the backend and frontend to migrate Lexsitus from Angular to Next.js and establish the content architecture for the new platform. I designed and set up the content schema and database model for multilingual legal documents, navigation, and related metadata, along with the migration tooling and APIs needed to move existing content into the new system.
+
+On the frontend, I built the application shell and content workflows around that model, including document browsing, legal findings and decisions, facet-driven search, reading lists, sharing, print views, authentication, and localization. This required keeping the relationships in the legal information model consistent across the database, APIs, and user-facing navigation.
+
+The focus was on modernizing the product without losing the depth of its legal information model, while making the platform easier to extend, migrate, and maintain.`,
+    duration: "Jan 2025 - Apr 2025",
   },
   {
     id: "clinchit",
@@ -76,7 +92,8 @@ The goal is to make UI implementation more repeatable: design changes can flow t
 
 I worked across the frontend and backend to extend streaming account chat, agent tools, sales metrics, and integrations with Gmail, Asana, HubSpot, Snowflake, Microsoft Teams, and Zoom. I also worked on features that connected conversational context with account-level insights, helping sales teams understand customer health and act on information from the systems they already use.
 
-The product required more than simply adding an LLM-powered chat box. It involved integrating external systems, presenting long-running and streaming operations clearly, and building interfaces that made AI-generated analysis useful inside an existing sales workflow.`,
+    The product required more than simply adding an LLM-powered chat box. It involved integrating external systems, presenting long-running and streaming operations clearly, and building interfaces that made AI-generated analysis useful inside an existing sales workflow.`,
+    duration: "Apr 2025 - Dec 2025",
   },
   {
     id: "chet",

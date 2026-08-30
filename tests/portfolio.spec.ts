@@ -77,7 +77,7 @@ test.describe("network portfolio", () => {
     }
   });
 
-  test("drags a project node and springs it back to its home position", async ({ page }) => {
+  test("drags a project node without opening its modal and lets physics settle it", async ({ page }) => {
     const node = page.getByTestId("network-node-ren3");
     const home = await node.boundingBox();
     expect(home).not.toBeNull();
@@ -104,7 +104,7 @@ test.describe("network portfolio", () => {
         if (!current) return Number.POSITIVE_INFINITY;
         return Math.hypot(current.x - home!.x, current.y - home!.y);
       }, { timeout: 2500, intervals: [50, 100, 200] })
-      .toBeLessThan(6);
+      .toBeLessThan(80);
   });
 
   test("uses the Toolkit name and requested favicon logos", async ({ page }) => {
@@ -154,19 +154,42 @@ test.describe("network portfolio", () => {
     await expect(modal.locator(".modal-kicker, .modal-accent")).toHaveCount(0);
   });
 
-  test("gives floating nodes independent wobble with reduced-motion support", async ({ page }) => {
+  test("uses bounded force-driven positions and stops in reduced motion", async ({ page }) => {
     const placements = page.locator(".node-placement");
-    const animationStyles = await placements.evaluateAll((elements) => elements.slice(0, 2).map((element) => {
-      const style = getComputedStyle(element);
-      return { name: style.animationName, delay: style.animationDelay };
-    }));
+    await expect(placements.first()).toHaveCSS("position", "absolute");
+    await expect(page.getByTestId("network-node-ren3")).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
 
-    expect(animationStyles[0].name).toBe("node-wobble");
-    expect(animationStyles[0].delay).not.toBe(animationStyles[1].delay);
+    const bounds = await page.locator(".network-nodes").boundingBox();
+    const nodeBoxes = await page.locator(".network-node").evaluateAll((nodes) => nodes.map((node) => {
+      const box = node.getBoundingClientRect();
+      return { left: box.left, right: box.right, top: box.top, bottom: box.bottom };
+    }));
+    expect(bounds).not.toBeNull();
+    for (const box of nodeBoxes) {
+      expect(box.left).toBeGreaterThanOrEqual(bounds!.x - 2);
+      expect(box.right).toBeLessThanOrEqual(bounds!.x + bounds!.width + 2);
+      expect(box.top).toBeGreaterThanOrEqual(bounds!.y - 2);
+      expect(box.bottom).toBeLessThanOrEqual(bounds!.y + bounds!.height + 2);
+    }
+
+    const movingNode = page.getByTestId("network-node-ren3");
+    const initialPosition = await movingNode.boundingBox();
+    await page.waitForTimeout(350);
+    const laterPosition = await movingNode.boundingBox();
+    expect(initialPosition).not.toBeNull();
+    expect(laterPosition).not.toBeNull();
+    expect(Math.hypot(laterPosition!.x - initialPosition!.x, laterPosition!.y - initialPosition!.y)).toBeGreaterThan(0.25);
 
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.reload();
-    await expect(page.locator(".node-placement").first()).toHaveCSS("animation-name", "none");
+    const node = page.getByTestId("network-node-ren3");
+    await page.waitForTimeout(300);
+    const before = await node.boundingBox();
+    await page.waitForTimeout(300);
+    const after = await node.boundingBox();
+    expect(before).not.toBeNull();
+    expect(after).not.toBeNull();
+    expect(Math.hypot(after!.x - before!.x, after!.y - before!.y)).toBeLessThan(2);
   });
 
   test("exposes safe external contact links", async ({ page }) => {
