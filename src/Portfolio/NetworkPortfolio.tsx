@@ -434,6 +434,7 @@ interface NodeButtonProps {
 const NodeButton: FC<NodeButtonProps> = ({ id, label, icon: Icon, image, position, kind, onClick, onPointerDown, onPointerMove, onPointerEnd, url }) => {
   const iconImage = image ?? (typeof Icon === "string" ? Icon : undefined);
   const IconComponent = typeof Icon === "string" ? undefined : Icon;
+  const logoClass = ["mongodb", "postgresql", "nodejs", "pulumi"].includes(id) ? `${id}-node` : "";
   const suppressClick = useRef(false);
   const pointerState = useRef<{ pointerId: number; startX: number; startY: number; moved: boolean } | null>(null);
   const placementStyle = {
@@ -487,7 +488,7 @@ const NodeButton: FC<NodeButtonProps> = ({ id, label, icon: Icon, image, positio
     return (
       <div className="node-placement" style={placementStyle}>
         <a
-          className={`network-node ${kind}-node`}
+          className={`network-node ${kind}-node ${logoClass}`}
           data-testid={`network-node-${id}`}
           href={url}
           target="_blank"
@@ -509,7 +510,7 @@ const NodeButton: FC<NodeButtonProps> = ({ id, label, icon: Icon, image, positio
   return (
     <div className="node-placement" style={placementStyle}>
       <button
-        className={`network-node ${kind}-node ${id === "express" ? "express-node" : ""}`}
+        className={`network-node ${kind}-node ${id === "express" ? "express-node" : ""} ${logoClass}`}
         data-testid={`network-node-${id}`}
         type="button"
         aria-label={label}

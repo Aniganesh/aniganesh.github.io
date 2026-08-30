@@ -113,7 +113,7 @@ test.describe("network portfolio", () => {
 
     const toolkitFavicons = {
       nodejs: "/favicons/nodejs.ico",
-      postgresql: "/favicons/postgresql.ico",
+      postgresql: "/favicons/postgresql-elephant.png",
       pulumi: "/favicons/pulumi.ico",
       zustand: "/favicons/zustand.ico",
       "socket-io": "/favicons/socket-io.png",

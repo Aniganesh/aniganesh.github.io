@@ -1,5 +1,4 @@
 import {
-  Cloud,
   GithubLogo,
   InstagramLogo,
   LinkedinLogo,
@@ -98,9 +97,9 @@ export const toolkitItems: ToolkitItem[] = [
   toolkitTechnology("express", "Express", ExpressIcon),
   toolkitTechnology("graphql", "GraphQL", GraphQLIcon),
   toolkitTechnology("mongodb", "MongoDB", MongoDBIcon),
-  toolkitTechnology("postgresql", "PostgreSQL", "/favicons/postgresql.ico"),
+  toolkitTechnology("postgresql", "PostgreSQL", "/favicons/postgresql-elephant.png"),
   toolkitTechnology("amazon-s3", "Amazon S3", AmazonS3Icon),
-  toolkitTechnology("aws", "AWS", Cloud),
+  toolkitTechnology("aws", "AWS", "/favicons/aws.ico"),
   toolkitTechnology("ubuntu", "Ubuntu", UbuntuIcon),
   toolkitTechnology("pulumi", "Pulumi", "/favicons/pulumi.ico"),
   toolkitTechnology("zustand", "Zustand", "/favicons/zustand.ico"),
