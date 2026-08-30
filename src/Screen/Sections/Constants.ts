@@ -4,7 +4,7 @@ const chetLogo =
 const pgLogo =
   "https://ik.imagekit.io/trulyrandom/portfolio/pg_logo_1.svg?updatedAt=1693208197553";
 const rebnyLogo =
-  "https://ik.imagekit.io/trulyrandom/REBNY_LOGO.png?updatedAt=1687013991765";
+  "/favicons/rebny.ico";
 const chardanLogo = "/projects/Chardan-Orig-Logo.png";
 const ren3Logo = "/projects/ren3-logo.svg";
 const mithyaUiLogo = "/projects/mithya-ui-logo.svg";
@@ -32,55 +32,6 @@ export const sidebarLinks: SidebarLink[] = [
     link: "https://stackoverflow.com/users/10032950/frankencode",
   },
 ];
-
-export const projects: Project[] = [
-  {
-    id: "rajini-lipsum",
-    image:
-      "https://i.pinimg.com/originals/00/b4/69/00b469328c4eb1f6cdb19a3638520857.jpg",
-    imgSrc:
-      "https://abilitytolov3.blogspot.com/1973/07/illustration-rajinikanth-vector.html",
-    projectTitle: "Rajini lipsum",
-    // projectSubtitle: '',
-    details:
-      "A fun VS Code extension that gives you placeholder text using iconic lines from Rajini's movies",
-    url: "https://marketplace.visualstudio.com/items?itemName=aniruddha.rajini-lipsum",
-  },
-  {
-    id: "help-decide",
-    image:
-      "https://cdn.iconscout.com/icon/premium/png-256-thumb/confused-man-606288.png",
-    projectTitle: "Help me decide",
-    imgSrc: "https://iconscout.com/icon/confused-man",
-    // projectSubtitle: '',
-    details:
-      "A very simple single page application using HTML5, CSS3 and JS that helps you decide between tasks",
-    url: "https://helpmedecide.vercel.app/",
-  },
-  {
-    id: "colour palette",
-    image:
-      "https://static.vecteezy.com/system/resources/previews/000/510/084/original/color-palette-vector-illustration.jpg",
-    projectTitle: "Colour palette creator",
-    imgSrc:
-      "https://www.vecteezy.com/vector-art/510084-color-palette-vector-illustration",
-    // projectSubtitle: '',
-    details: `A simple desktop app using python and tkinter that creates a colour scheme complementing Bootstrap's BEM specification adding modifier classes`,
-    url: "https://github.com/Aniganesh/Colour-Palette-creator/",
-  },
-  {
-    id: "indic-games",
-    image: "https://indic-games.in/logo.svg",
-    projectTitle: "Indic games",
-    // projectSubtitle: '',
-    details:
-      "Indic games is a website and a collection of games inspired from Indian knowledge systems.",
-    url: "https://indic-games.onrender.com",
-    additionalDetails: `Indic games is a passion project I started for fun and learning.
-    The first game is "Guess who?" an indic version of the classic guess who game. I first designed the project on Figma, planned it on Github projects, architected and executed it using React, Zustand, Express, Socket.io and Contentful over the next couple of months working after hours and weekends on the project. I also wrote the content for it in the same time period.`,
-  },
-];
-// const GRID_SPACING_LG = 40; const GRID_SPACING_MD = 20; const GRID_SPACING_SM = 10;
 
 export const workProjects: Project[] = [
   {
