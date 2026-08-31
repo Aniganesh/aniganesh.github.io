@@ -9,7 +9,6 @@ import {
   forceY,
 } from "d3-force";
 import ReactMarkdown from "react-markdown";
-import ProfileImage from "Assets/images/Me3.png";
 import { contactItems, portfolioProjects, profileContent, toolkitItems } from "./data";
 import type { ContactItem, PortfolioIcon, PortfolioTab, ProjectModalState, ToolkitItem } from "./types";
 import "./styles.css";
@@ -40,7 +39,7 @@ interface SimulationBounds {
   padding: number;
 }
 
-const PROFILE_IMAGE = ProfileImage;
+const PROFILE_IMAGE = "/Me3.png";
 const TABS: Array<{ id: PortfolioTab; label: string }> = [
   { id: "projects", label: "Projects" },
   { id: "toolkit", label: "Toolkit" },
@@ -378,7 +377,7 @@ const NetworkPortfolio: FC = () => {
           }}
         >
           <div className="profile-frame">
-            <img src={PROFILE_IMAGE} alt="Aniruddha Ganesh" />
+            <img className="profile-node-image" src={PROFILE_IMAGE} alt="Aniruddha Ganesh" />
           </div>
         </div>
 

@@ -260,7 +260,11 @@ test.describe("network portfolio", () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.reload();
 
-    const box = await page.getByTestId("network-profile-node").boundingBox();
+    const profileNode = page.getByTestId("network-profile-node");
+    await expect(profileNode.locator("img")).toHaveAttribute("src", "/Me3.png");
+    await expect(profileNode.locator("img")).toHaveCSS("object-position", "50% 12%");
+
+    const box = await profileNode.boundingBox();
     expect(box).not.toBeNull();
     expect(Math.abs(box!.width - box!.height)).toBeLessThan(1);
   });
