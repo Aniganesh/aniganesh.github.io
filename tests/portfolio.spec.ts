@@ -62,6 +62,7 @@ test.describe("network portfolio", () => {
 
       const profileNode = page.getByTestId("network-profile-node");
       await expect(profileNode).toBeVisible();
+      await expect(profileNode).toHaveRole("button");
       await profileNode.click({ force: true });
 
       const modal = page.getByTestId("profile-modal");
@@ -240,6 +241,7 @@ test.describe("network portfolio", () => {
         nodesDisplay: nodesStyle.display,
         placementsPosition: placementStyles.every((style) => style.position === "absolute"),
         nodeWidth: boxes[0]?.width ?? 0,
+        centerShapeDelta: centerBox ? Math.abs(centerBox.width - centerBox.height) : Number.POSITIVE_INFINITY,
         hasNodeAboveCenter: Boolean(centerBox && boxes.some((box) => box.bottom < centerBox.top)),
         hasNodeBelowCenter: Boolean(centerBox && boxes.some((box) => box.top > centerBox.bottom)),
       };
@@ -249,7 +251,17 @@ test.describe("network portfolio", () => {
     expect(layout.nodesDisplay).toBe("block");
     expect(layout.placementsPosition).toBe(true);
     expect(layout.nodeWidth).toBeLessThan(80);
+    expect(layout.centerShapeDelta).toBeLessThan(1);
     expect(layout.hasNodeAboveCenter).toBe(true);
     expect(layout.hasNodeBelowCenter).toBe(true);
+  });
+
+  test("keeps the profile node square on mobile", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.reload();
+
+    const box = await page.getByTestId("network-profile-node").boundingBox();
+    expect(box).not.toBeNull();
+    expect(Math.abs(box!.width - box!.height)).toBeLessThan(1);
   });
 });

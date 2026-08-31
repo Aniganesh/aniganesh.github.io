@@ -73,15 +73,15 @@ const createBoundsForce = (bounds: SimulationBounds) => {
   return force;
 };
 
-const createDriftForce = (reducedMotion: boolean) => {
+const createDriftForce = (reducedMotion: boolean, strength = 0.09) => {
   let nodes: SimulationNode[] = [];
   const force = () => {
     if (reducedMotion) return;
     const time = performance.now() / 1000;
     nodes.forEach((node) => {
       if (node.fx != null || node.fy != null) return;
-      node.vx = (node.vx ?? 0) + Math.cos(time * node.driftSpeed + node.driftPhase) * 0.09;
-      node.vy = (node.vy ?? 0) + Math.sin(time * node.driftSpeed * 0.83 + node.driftPhase) * 0.09;
+      node.vx = (node.vx ?? 0) + Math.cos(time * node.driftSpeed + node.driftPhase) * strength;
+      node.vy = (node.vy ?? 0) + Math.sin(time * node.driftSpeed * 0.83 + node.driftPhase) * strength;
     });
   };
   force.initialize = (nextNodes: SimulationNode[]) => { nodes = nextNodes; };
@@ -202,18 +202,18 @@ const NetworkPortfolio: FC = () => {
       const links: SimulationLink[] = surroundingNodes.map((node) => ({ source: "profile", target: node.id }));
       const linkForce = forceLink<SimulationNode, SimulationLink>(links)
         .id((node) => node.id)
-        .distance(Math.min(rect.width, rect.height) * (mobile ? 0.3 : 0.34))
-        .strength(0.015);
+        .distance(Math.min(rect.width, rect.height) * (mobile ? 0.27 : 0.34))
+        .strength(mobile ? 0.01 : 0.015);
 
       simulation = forceSimulation<SimulationNode>(nodes)
-        .velocityDecay(mobile ? 0.44 : 0.5)
+        .velocityDecay(mobile ? 0.52 : 0.5)
         .force("link", linkForce)
-        .force("charge", forceManyBody<SimulationNode>().strength(mobile ? -44 : -82).distanceMax(Math.max(rect.width, rect.height) * 1.25))
+        .force("charge", forceManyBody<SimulationNode>().strength(mobile ? -28 : -82).distanceMax(Math.max(rect.width, rect.height) * 1.25))
         .force("collide", forceCollide<SimulationNode>().radius((node) => node.radius).strength(0.85).iterations(2))
-        .force("target-x", forceX<SimulationNode>((node) => node.targetX).strength(mobile ? 0.06 : 0.038))
-        .force("target-y", forceY<SimulationNode>((node) => node.targetY).strength(mobile ? 0.06 : 0.038))
+        .force("target-x", forceX<SimulationNode>((node) => node.targetX).strength(mobile ? 0.045 : 0.038))
+        .force("target-y", forceY<SimulationNode>((node) => node.targetY).strength(mobile ? 0.045 : 0.038))
         .force("bounds", createBoundsForce(bounds))
-        .force("drift", createDriftForce(reducedMotion))
+        .force("drift", createDriftForce(reducedMotion, mobile ? 0.05 : 0.09))
         .on("tick", publishPositions);
       simulationRef.current = simulation;
 
@@ -222,7 +222,7 @@ const NetworkPortfolio: FC = () => {
         simulation.tick(90);
         publishPositions();
       } else {
-        simulation.alpha(0.95).alphaTarget(0.08).restart();
+        simulation.alpha(mobile ? 0.75 : 0.95).alphaTarget(mobile ? 0.05 : 0.08).restart();
       }
     };
 
@@ -363,17 +363,24 @@ const NetworkPortfolio: FC = () => {
           ))}
         </svg>
 
-        <button
+        <div
           className="network-center"
-          type="button"
+          role="button"
+          tabIndex={0}
           aria-label="About Aniruddha Ganesh"
           data-testid="network-profile-node"
           onClick={(event) => openProfile(event.currentTarget)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              openProfile(event.currentTarget);
+            }
+          }}
         >
           <div className="profile-frame">
             <img src={PROFILE_IMAGE} alt="Aniruddha Ganesh" />
           </div>
-        </button>
+        </div>
 
         <div className="network-nodes" data-testid="network-nodes" ref={networkNodesRef}>
           {items.map((item, index) => {

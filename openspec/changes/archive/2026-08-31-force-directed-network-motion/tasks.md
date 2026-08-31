@@ -33,3 +33,11 @@
 - [x] 5.3 Add browser coverage for transparent node shells and perceptible live force movement, then rerun the complete suite.
 - [x] 5.4 Remove the background grid layer while retaining the subdued radial, scanline, ambient, and star-field depth treatments.
 - [x] 5.5 Dim the connecting strokes, lower background chroma, and soften the central profile glow.
+
+## 6. Cross-browser mobile refinement
+
+- [x] 6.1 Replace the central profile button with an accessible role-based control that supports click, Enter, and Space activation.
+- [x] 6.2 Give the central control and profile frame explicit equal dimensions so Firefox cannot resolve them as a vertically flattened ellipse.
+- [x] 6.3 Reduce mobile repulsion, link pull, target attraction, drift, and simulation energy while increasing mobile damping; preserve desktop tuning.
+- [x] 6.4 Add Playwright coverage for role-based profile activation and square mobile profile geometry.
+- [x] 6.5 Run the production build and complete Playwright suite after the cross-browser/mobile refinement.

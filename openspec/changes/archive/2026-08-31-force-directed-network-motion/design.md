@@ -49,7 +49,11 @@ The node shell itself remains transparent. The logo viewport or icon backing may
 
 ### Use pointer events for drag control
 
-Keep node activation in semantic `<button>` and `<a>` elements and use pointer events with pointer capture for dragging. On pointer down, pin the dragged node, raise the simulation alpha target, and suppress activation when movement exceeds a small threshold. On release, unpin the node, lower the alpha target, and let target/collision forces settle it. This avoids coupling the physics model to a second animation/gesture library.
+Keep surrounding node activation in semantic `<button>` and `<a>` elements and use pointer events with pointer capture for dragging. The fixed profile control uses a `div` with `role="button"`, `tabIndex="0"`, and explicit Enter/Space keyboard activation so browser-native button sizing cannot distort its circular geometry. On pointer down, pin the dragged node, raise the simulation alpha target, and suppress activation when movement exceeds a small threshold. On release, unpin the node, lower the alpha target, and let target/collision forces settle it. This avoids coupling the physics model to a second animation/gesture library.
+
+### Use explicit cross-browser profile geometry
+
+Define matching width and height values for the profile control at each responsive breakpoint, with `box-sizing: border-box` on the control and its circular image frame. Keep `aspect-ratio` as a consistency hint, but do not depend on auto-height resolution for the circle. Tune mobile force constants below desktop values to reduce CPU use and prevent overly energetic movement in constrained viewports.
 
 ### Batch simulation ticks into React updates
 
@@ -72,7 +76,7 @@ When reduced motion is preferred, initialize nodes at their target positions, om
 1. Add `d3-force` and its TypeScript types, then remove `motion` if no other source uses it.
 2. Replace percentage-only placement and Motion drag props with simulation state, target metadata, pointer drag handling, and resize synchronization.
 3. Keep the SVG connection layer central-only while deriving endpoints from simulated positions.
-4. Tune desktop and mobile force constants and verify no overflow or inaccessible controls.
+4. Tune desktop and mobile force constants and verify no overflow, inaccessible controls, or profile-node distortion across browser engines.
 5. Update Playwright coverage for settling, collision spacing, drag behavior, reduced motion, and central-only lines.
 6. Run the production build, unit-test command, and desktop/mobile browser suite.
 

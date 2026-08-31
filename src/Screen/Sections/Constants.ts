@@ -40,12 +40,16 @@ export const workProjects: Project[] = [
     image: ren3Logo,
     projectTitle: "ReN3",
     details:
-      "An enterprise AI platform for ACL-aware knowledge ingestion, retrieval, agent workflows, document processing, and workspace administration.",
+      "An enterprise AI platform for ACL-aware knowledge ingestion, retrieval, concurrent streaming agent workflows, document processing, and workspace administration.",
     url: "",
-    roles: ["Frontend developer"],
+    roles: ["Frontend contributor"],
     additionalDetails: `ReN3 is a multi-tenant enterprise AI platform that brings together knowledge ingestion, retrieval, agent workflows, document processing, streaming conversations, and workspace administration.
 
-I worked across the web console and platform-facing frontend, building streaming chat, SharePoint knowledge-source flows, workspace administration, citation navigation, file exploration, artifact downloads, and workspace-scoped conversation behavior. I also worked on audit visibility, timestamps, file title editing, citation previews, and the interaction details that make a complex AI platform understandable to users.
+I worked as a frontend contributor across the web console and platform-facing frontend, building streaming chat, SharePoint knowledge-source flows, workspace administration, citation navigation, file exploration, artifact downloads, and workspace-scoped conversation behavior. I also worked on audit visibility, timestamps, file title editing, citation previews, and the interaction details that make a complex AI platform understandable to users.
+
+One of the more demanding frontend problems was supporting multiple AG-UI chat streams at the same time without mixing conversation state or making the interface unnecessarily expensive to update. I implemented a per-conversation stream pool and in-memory registry, reusing the correct runtime by conversation ID while keeping slot-to-stream and running-thread bookkeeping isolated. Stream lifecycle handling covered terminal events, cancellation, errors, short idle gaps between chained runs, and prolonged periods without visible updates. Persisted history and optimistic messages were also coordinated so switching conversations did not flash or overwrite the wrong transcript.
+
+I also implemented a reusable multi-format file viewer used by the product. It buffers URL, Blob, and ReadableStream sources, identifies file types from content and MIME data, and routes them to renderers for PDF, DOCX, XLSX/XLS/CSV, PPTX, images including multi-page TIFF, markdown, HTML, and text. The viewer exposes format-specific controls such as page navigation, zoom, spreadsheet sheet selection, and safe preview/source modes.
 
 The wider platform includes API gateways, control-plane services, ingestion and indexing workers, shared libraries for ACLs, storage, streaming, and orchestration, as well as integrations for systems such as SharePoint, Salesforce, MCP servers, and databases. My work sits at the boundary between product UX and the distributed systems that power it.`,
     duration: "Dec 2025 - Present",

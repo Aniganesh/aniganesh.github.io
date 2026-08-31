@@ -44,9 +44,9 @@
 .network-lines { position: absolute; inset: 1rem 0 2.5rem; width: 100%; height: calc(100% - 3.5rem); overflow: visible; }
 .connection-line { stroke: rgba(103, 180, 210, 0.3); stroke-width: 0.12; opacity: 0.35; }
 
-.network-center { position: absolute; top: 50%; left: 50%; z-index: 3; display: grid; place-items: center; width: clamp(13rem, 19vw, 18rem); aspect-ratio: 1; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; transform: translate(-50%, -50%); }
+.network-center { position: absolute; top: 50%; left: 50%; z-index: 3; display: grid; place-items: center; width: clamp(13rem, 19vw, 18rem); height: clamp(13rem, 19vw, 18rem); aspect-ratio: 1 / 1; box-sizing: border-box; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; transform: translate(-50%, -50%); }
 .network-center:focus-visible { outline: 2px solid #cffafe; outline-offset: 0.5rem; }
-.profile-frame { position: relative; z-index: 2; width: 72%; height: 72%; padding: 0.45rem; border: 1px solid rgba(103, 232, 249, 0.9); border-radius: 50%; background: linear-gradient(145deg, rgba(12, 36, 65, 0.95), rgba(2, 13, 28, 0.98)); box-shadow: 0 0 0 5px rgba(34, 211, 238, 0.03), 0 0 35px rgba(34, 211, 238, 0.12), inset 0 0 24px rgba(34, 211, 238, 0.08); }
+.profile-frame { position: relative; z-index: 2; width: 72%; height: 72%; box-sizing: border-box; padding: 0.45rem; border: 1px solid rgba(103, 232, 249, 0.9); border-radius: 50%; background: linear-gradient(145deg, rgba(12, 36, 65, 0.95), rgba(2, 13, 28, 0.98)); box-shadow: 0 0 0 5px rgba(34, 211, 238, 0.03), 0 0 35px rgba(34, 211, 238, 0.12), inset 0 0 24px rgba(34, 211, 238, 0.08); }
 .profile-frame img { width: 100%; height: 100%; border-radius: 50%; display: block; object-fit: cover; }
 
 .network-nodes { position: absolute; inset: 1rem 0 2.5rem; }
@@ -104,7 +104,7 @@
   .portfolio-header { display: block; padding-top: 1.25rem; }
   .tab-list { justify-content: center; }
   .network-panel { min-height: calc(100vh - 11rem); margin: 0 1rem; }
-  .network-center { width: 8rem; }
+  .network-center { width: 8rem; height: 8rem; }
   .network-lines { inset: 0; width: 100%; height: 100%; }
   .network-nodes { inset: 0; overflow: visible; }
   .network-node { width: 4rem; height: 4rem; padding: 0.4rem; }

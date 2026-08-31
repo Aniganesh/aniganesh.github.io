@@ -61,3 +61,25 @@ The portfolio SHALL disable continuous ambient force motion when the visitor pre
 - **THEN** nodes initialize and settle without continuous drift
 - **AND** the simulation stops after the layout is resolved
 - **AND** tabs, nodes, links, and modals remain usable
+
+### Requirement: Cross-browser profile control geometry
+
+The fixed profile control SHALL remain circular across supported browser engines and responsive viewport sizes. Its width and height SHALL be explicitly matched at each breakpoint, and its keyboard interaction SHALL remain equivalent to a button when implemented with a role-based control.
+
+#### Scenario: Mobile Gecko rendering
+
+- **WHEN** the portfolio is rendered in a narrow viewport using Firefox or another Gecko-based browser
+- **THEN** the profile control's rendered width and height differ by no more than one CSS pixel
+- **AND** the profile image frame remains circular without vertical flattening
+- **AND** Enter and Space activate the profile modal
+
+### Requirement: Responsive mobile force tuning
+
+The force simulation SHALL use gentler mobile-specific physics than desktop so constrained viewports remain calm, readable, and within bounds while preserving visible floating motion.
+
+#### Scenario: Mobile network energy
+
+- **WHEN** the network is rendered below the mobile breakpoint
+- **THEN** mobile repulsion, link pull, target attraction, ambient drift, and simulation energy are lower than their desktop counterparts
+- **AND** increased damping allows nodes to settle without chaotic movement
+- **AND** node bounds, collision avoidance, dragging, and reduced-motion behavior remain intact
