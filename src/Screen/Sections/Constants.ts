@@ -66,7 +66,9 @@ The wider platform includes API gateways, control-plane services, ingestion and 
 
 My contributions focused on reusable state and interaction patterns for complex data products, including table navigation, sticky headers, entity and media rendering, autosave and row mutation, plugin contracts, issue views, and incremental loading. I also worked at the integration boundary between the shared SDK and engine services and the product UI, improving data-fetching and update behavior across the platform.
 
-The goal was to make a highly configurable platform feel coherent and dependable while allowing teams to compose new domain-specific experiences without duplicating core UI behavior.`,
+The goal was to make a highly configurable platform feel coherent and dependable while allowing teams to compose new domain-specific experiences without duplicating core UI behavior.
+
+As part of Comake, I also worked on AIMeGo, an AI-powered travel assistant that helped visitors discover events, attractions, and other things to do when visiting Atlanta. The project was sold to the City of Atlanta, and the State of Georgia also expressed interest in it.`,
     duration: "Nov 2024 - Apr 2025",
   },
   {
@@ -151,7 +153,7 @@ I worked across the frontend and backend to extend streaming account chat, agent
     image:
       "https://images.squarespace-cdn.com/content/v1/62a0ff769bb0454090ba7a78/1676657933490-W71Z4TINOBT13RSCKAIU/favicon.ico?format=100w",
     projectTitle: "Humans",
-    url: "https://humans.inc",
+    url: "https://hello.cx/",
     details:
       "Humans is a web app and an IRL way to get like minded people together and form communities. The web app serves as a way to connect with people with similar interests.",
     additionalDetails:
