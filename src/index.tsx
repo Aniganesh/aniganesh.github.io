@@ -1,6 +1,10 @@
 import App from "App";
-import { createRoot } from "react-dom/client";
+import { hydrateRoot } from "react-dom/client";
 
 const container = document.getElementById("root");
-const root = createRoot(container!);
-root.render(<App />);
+
+if (!container) {
+  throw new Error("Root container not found");
+}
+
+hydrateRoot(container, <App />);

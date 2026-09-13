@@ -2,7 +2,7 @@
 
 ## Project overview
 
-This repository contains Aniruddha Ganesh's personal portfolio site. It is a Create React App application written in TypeScript, styled with Material-UI v4, and deployed to GitHub Pages at `profile.indic-games.in`.
+This repository contains Aniruddha Ganesh's personal portfolio site. It is a Vite application written in TypeScript with build-time static rendering, and is deployed to GitHub Pages at `profile.indic-games.in`.
 
 Use Yarn for dependency installation and scripts because the repository is committed with `yarn.lock` and CI runs `yarn install --frozen-lockfile`.
 
@@ -15,7 +15,7 @@ Use Yarn for dependency installation and scripts because the repository is commi
 - `src/Theme/`: Material-UI theme and shared design constants.
 - `src/Assets/`: local fonts, images, and technology icons.
 - `public/`: static assets referenced by root-relative URLs.
-- `.github/workflows/master.yml`: builds and deploys the `build/` output to the `gh-pages` branch.
+- `.github/workflows/master.yml`: typechecks, builds, and deploys the `build/` output to the `gh-pages` branch.
 
 ## Common commands
 
@@ -26,13 +26,14 @@ yarn build
 yarn test
 ```
 
-For a CI-equivalent production build, use:
+For a CI-equivalent typecheck and production build, use:
 
 ```bash
-DISABLE_ESLINT_PLUGIN=true yarn build
+yarn typecheck
+yarn build
 ```
 
-The project has no separate lint script; the build invokes the Create React App checks. Run the relevant build or test command after changes, especially changes to TypeScript, routing/layout, or styling.
+The project has no separate lint script. Vite builds the client bundle and the prerendered root document, while `yarn typecheck` validates the application and Vite configuration. Run the relevant typecheck or build command after changes, especially changes to TypeScript, routing/layout, or styling.
 
 ## Development conventions
 
@@ -47,7 +48,7 @@ The project has no separate lint script; the build invokes the Create React App 
 
 ## Validation and deployment
 
-- Before handing off a change, run `DISABLE_ESLINT_PLUGIN=true yarn build` and `yarn test` when tests are relevant.
+- Before handing off a change, run `yarn typecheck` and `yarn build`.
 - Do not commit generated `build/` output; GitHub Actions generates it during deployment.
-- A push to `master` triggers the build-and-deploy workflow. Deployment publishes the contents of `build/` to the `gh-pages` branch.
+- A push to `master` triggers the build-and-deploy workflow. The workflow typechecks before building, then publishes the contents of `build/` to the `gh-pages` branch.
 - Keep external links and project URLs valid when editing portfolio data.
