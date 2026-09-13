@@ -556,7 +556,7 @@ interface NodeButtonProps {
 const NodeButton: FC<NodeButtonProps> = ({ id, label, icon: Icon, image, position, kind, onClick, onPointerDown, onPointerMove, onPointerEnd, url }) => {
   const iconImage = image ?? (typeof Icon === "string" ? Icon : undefined);
   const IconComponent = typeof Icon === "string" ? undefined : Icon;
-  const logoClass = ["mongodb", "postgresql", "nodejs", "pulumi"].includes(id) ? `${id}-node` : "";
+  const logoClass = ["mongodb", "postgresql", "nodejs", "pulumi", "typescript"].includes(id) ? `${id}-node` : "";
   const suppressClick = useRef(false);
   const pointerState = useRef<{ pointerId: number; startX: number; startY: number; moved: boolean } | null>(null);
   const placementStyle = {

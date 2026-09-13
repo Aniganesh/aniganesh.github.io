@@ -26,7 +26,7 @@ export const sidebarLinks: SidebarLink[] = [
   },
   {
     text: "YouTube",
-    link: "https://www.youtube.com/@thecodebuddha7246",
+    link: "https://youtube.com/@thecodebuddha",
   },
   {
     text: "StackOverflow",
