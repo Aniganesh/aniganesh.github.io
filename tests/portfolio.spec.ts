@@ -108,6 +108,38 @@ test.describe("network portfolio", () => {
       .toBeLessThan(80);
   });
 
+  test("drags the central profile node and returns it to the center without opening its modal", async ({ page }) => {
+    const profile = page.getByTestId("network-profile-node");
+    const home = await profile.boundingBox();
+    const line = page.locator(".connection-line").first();
+    expect(home).not.toBeNull();
+
+    const startX = home!.x + home!.width / 2;
+    const startY = home!.y + home!.height / 2;
+    const dragX = startX + 120;
+    const dragY = startY - 64;
+
+    await page.mouse.move(startX, startY);
+    await page.mouse.down();
+    await page.mouse.move(dragX, dragY, { steps: 8 });
+
+    await expect.poll(async () => {
+      const current = await profile.boundingBox();
+      return current ? Math.hypot(current.x - home!.x, current.y - home!.y) : 0;
+    }).toBeGreaterThan(20);
+    await expect.poll(async () => Number(await line.getAttribute("x1"))).not.toBe(50);
+
+    await page.mouse.up();
+    await expect(page.getByTestId("profile-modal")).toHaveCount(0);
+    await expect
+      .poll(async () => {
+        const current = await profile.boundingBox();
+        if (!current) return Number.POSITIVE_INFINITY;
+        return Math.hypot(current.x - home!.x, current.y - home!.y);
+      }, { timeout: 2500, intervals: [50, 100, 200] })
+      .toBeLessThan(2);
+  });
+
   test("uses the Toolkit name and requested favicon logos", async ({ page }) => {
     await expect(page.getByTestId("network-tab-toolkit")).toContainText("Toolkit");
     await page.getByTestId("network-tab-toolkit").click();
@@ -261,11 +293,56 @@ test.describe("network portfolio", () => {
     await page.reload();
 
     const profileNode = page.getByTestId("network-profile-node");
-    await expect(profileNode.locator("img")).toHaveAttribute("src", "/Me3.png");
+    await expect(profileNode.locator("img")).toHaveAttribute("src", "/Me_orange_bg.jpg");
     await expect(profileNode.locator("img")).toHaveCSS("object-position", "50% 12%");
 
     const box = await profileNode.boundingBox();
     expect(box).not.toBeNull();
     expect(Math.abs(box!.width - box!.height)).toBeLessThan(1);
+  });
+
+  test("exposes selection-safe network imagery and social metadata", async ({ page }) => {
+    await expect(page.getByTestId("network-panel")).toHaveCSS("user-select", "none");
+    await expect(page.getByTestId("network-profile-node").locator("img")).toHaveAttribute("draggable", "false");
+    await expect(page.getByTestId("network-profile-node").locator("img")).toHaveCSS("-webkit-user-drag", "none");
+
+    const metadata = await page.evaluate(() => {
+      const content = (selector: string) => document.querySelector<HTMLMetaElement>(selector)?.content;
+      return {
+        title: document.title,
+        description: content('meta[name="description"]'),
+        canonical: document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href,
+        ogType: content('meta[property="og:type"]'),
+        ogTitle: content('meta[property="og:title"]'),
+        ogDescription: content('meta[property="og:description"]'),
+        ogUrl: content('meta[property="og:url"]'),
+        ogImage: content('meta[property="og:image"]'),
+        ogImageType: content('meta[property="og:image:type"]'),
+        ogImageWidth: content('meta[property="og:image:width"]'),
+        ogImageHeight: content('meta[property="og:image:height"]'),
+        ogImageAlt: content('meta[property="og:image:alt"]'),
+        twitterCard: content('meta[name="twitter:card"]'),
+        twitterTitle: content('meta[name="twitter:title"]'),
+        twitterDescription: content('meta[name="twitter:description"]'),
+        twitterImage: content('meta[name="twitter:image"]'),
+      };
+    });
+
+    expect(metadata.title).toBe("Aniruddha Ganesh | AI-Native Full-Stack Engineer");
+    expect(metadata.description).toContain("agentic AI platforms");
+    expect(metadata.canonical).toBe("https://profile.indic-games.in/");
+    expect(metadata.ogType).toBe("website");
+    expect(metadata.ogTitle).toBe(metadata.title);
+    expect(metadata.ogDescription).toBe(metadata.description);
+    expect(metadata.ogUrl).toBe(metadata.canonical);
+    expect(metadata.ogImage).toBe("https://profile.indic-games.in/og-image.jpg");
+    expect(metadata.ogImageType).toBe("image/jpeg");
+    expect(metadata.ogImageWidth).toBe("1200");
+    expect(metadata.ogImageHeight).toBe("630");
+    expect(metadata.ogImageAlt).toContain("Aniruddha Ganesh");
+    expect(metadata.twitterCard).toBe("summary_large_image");
+    expect(metadata.twitterTitle).toBe(metadata.title);
+    expect(metadata.twitterDescription).toBe(metadata.description);
+    expect(metadata.twitterImage).toBe(metadata.ogImage);
   });
 });

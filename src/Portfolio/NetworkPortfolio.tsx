@@ -37,9 +37,10 @@ interface SimulationBounds {
   width: number;
   height: number;
   padding: number;
+  centerPadding: number;
 }
 
-const PROFILE_IMAGE = "/Me3.png";
+const PROFILE_IMAGE = "/Me_orange_bg.jpg";
 const TABS: Array<{ id: PortfolioTab; label: string }> = [
   { id: "projects", label: "Projects" },
   { id: "toolkit", label: "Toolkit" },
@@ -103,6 +104,9 @@ const NetworkPortfolio: FC = () => {
   const simulationNodesRef = useRef<Map<string, SimulationNode>>(new Map());
   const simulationBoundsRef = useRef<SimulationBounds | null>(null);
   const dragState = useRef<{ id: string; pointerId: number; offsetX: number; offsetY: number } | null>(null);
+  const profileReturnFrameRef = useRef<number | null>(null);
+  const profilePointerState = useRef<{ pointerId: number; startX: number; startY: number; moved: boolean } | null>(null);
+  const suppressProfileClick = useRef(false);
 
   const items = useMemo(() => {
     if (activeTab === "toolkit") return toolkitItems;
@@ -141,7 +145,7 @@ const NetworkPortfolio: FC = () => {
         if (!bounds) return;
         const nextPositions: Record<string, { x: number; y: number }> = {};
         simulationNodesRef.current.forEach((node) => {
-          if (node.id === "profile" || node.x == null || node.y == null) return;
+          if (node.x == null || node.y == null) return;
           nextPositions[node.id] = {
             x: (node.x / bounds.width) * 100,
             y: (node.y / bounds.height) * 100,
@@ -163,6 +167,7 @@ const NetworkPortfolio: FC = () => {
         width: rect.width,
         height: rect.height,
         padding: nodeRadius + 4,
+        centerPadding: centerRadius + 4,
       };
       simulationBoundsRef.current = bounds;
 
@@ -193,7 +198,7 @@ const NetworkPortfolio: FC = () => {
       });
       const nodes = [centerNode, ...surroundingNodes];
       simulationNodesRef.current = new Map(nodes.map((node) => [node.id, node]));
-      setSimulatedPositions(Object.fromEntries(surroundingNodes.map((node) => [node.id, {
+      setSimulatedPositions(Object.fromEntries(nodes.map((node) => [node.id, {
         x: (node.x / rect.width) * 100,
         y: (node.y / rect.height) * 100,
       }])));
@@ -235,6 +240,12 @@ const NetworkPortfolio: FC = () => {
       simulationRef.current = null;
       simulationNodesRef.current = new Map();
       simulationBoundsRef.current = null;
+      dragState.current = null;
+      profilePointerState.current = null;
+      if (profileReturnFrameRef.current !== null) {
+        window.cancelAnimationFrame(profileReturnFrameRef.current);
+        profileReturnFrameRef.current = null;
+      }
       if (frameId !== null) window.cancelAnimationFrame(frameId);
     };
   }, [items, positions, reducedMotion]);
@@ -266,8 +277,9 @@ const NetworkPortfolio: FC = () => {
     const bounds = simulationBoundsRef.current;
     const networkRect = networkNodesRef.current?.getBoundingClientRect();
     if (!currentDrag || currentDrag.id !== id || currentDrag.pointerId !== event.pointerId || !node || !bounds || !networkRect) return;
-    node.fx = clamp(event.clientX - networkRect.left + currentDrag.offsetX, bounds.padding, bounds.width - bounds.padding);
-    node.fy = clamp(event.clientY - networkRect.top + currentDrag.offsetY, bounds.padding, bounds.height - bounds.padding);
+    const padding = id === "profile" ? bounds.centerPadding : bounds.padding;
+    node.fx = clamp(event.clientX - networkRect.left + currentDrag.offsetX, padding, bounds.width - padding);
+    node.fy = clamp(event.clientY - networkRect.top + currentDrag.offsetY, padding, bounds.height - padding);
     node.x = node.fx;
     node.y = node.fy;
     setSimulatedPositions((current) => ({
@@ -276,17 +288,109 @@ const NetworkPortfolio: FC = () => {
     }));
   };
 
+  const returnProfileToCenter = (node: SimulationNode) => {
+    const bounds = simulationBoundsRef.current;
+    if (!bounds) return;
+    if (profileReturnFrameRef.current !== null) window.cancelAnimationFrame(profileReturnFrameRef.current);
+
+    const startX = node.x;
+    const startY = node.y;
+    const targetX = bounds.width / 2;
+    const targetY = bounds.height / 2;
+    const duration = reducedMotion ? 0 : 260;
+    const startedAt = performance.now();
+
+    const updatePosition = (x: number, y: number) => {
+      node.x = x;
+      node.y = y;
+      node.fx = x;
+      node.fy = y;
+      setSimulatedPositions((current) => ({
+        ...current,
+        profile: { x: (x / bounds.width) * 100, y: (y / bounds.height) * 100 },
+      }));
+    };
+
+    const finish = () => {
+      updatePosition(targetX, targetY);
+      profileReturnFrameRef.current = null;
+      simulationRef.current?.alphaTarget(reducedMotion ? 0 : 0.08).restart();
+    };
+
+    if (duration === 0) {
+      finish();
+      return;
+    }
+
+    const animate = (now: number) => {
+      const progress = Math.min(1, (now - startedAt) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      updatePosition(
+        startX + (targetX - startX) * eased,
+        startY + (targetY - startY) * eased
+      );
+      if (progress >= 1) {
+        finish();
+        return;
+      }
+      profileReturnFrameRef.current = window.requestAnimationFrame(animate);
+    };
+
+    simulationRef.current?.alphaTarget(0.08).restart();
+    profileReturnFrameRef.current = window.requestAnimationFrame(animate);
+  };
+
   const handleNodePointerEnd = (id: string, event: React.PointerEvent<HTMLElement>) => {
     const currentDrag = dragState.current;
     const node = simulationNodesRef.current.get(id);
     if (!currentDrag || currentDrag.id !== id || currentDrag.pointerId !== event.pointerId || !node) return;
+
+    if (id === "profile") {
+      dragState.current = null;
+      returnProfileToCenter(node);
+      return;
+    }
+
     node.fx = null;
     node.fy = null;
     dragState.current = null;
     simulationRef.current?.alphaTarget(reducedMotion ? 0 : 0.08).restart();
   };
 
+  const handleProfilePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    profilePointerState.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      moved: false,
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+    handleNodePointerDown("profile", event);
+  };
+
+  const handleProfilePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    const currentPointer = profilePointerState.current;
+    if (!currentPointer || currentPointer.pointerId !== event.pointerId) return;
+    if (Math.hypot(event.clientX - currentPointer.startX, event.clientY - currentPointer.startY) > 4) {
+      currentPointer.moved = true;
+    }
+    handleNodePointerMove("profile", event);
+  };
+
+  const handleProfilePointerEnd = (event: React.PointerEvent<HTMLDivElement>) => {
+    const currentPointer = profilePointerState.current;
+    if (!currentPointer || currentPointer.pointerId !== event.pointerId) return;
+    if (currentPointer.moved) {
+      suppressProfileClick.current = true;
+      window.setTimeout(() => { suppressProfileClick.current = false; }, 350);
+    }
+    handleNodePointerEnd("profile", event);
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    profilePointerState.current = null;
+  };
+
   const linePositions = items.map((item, index) => simulatedPositions[item.id] ?? positions[index]);
+  const profilePosition = simulatedPositions.profile ?? { x: 50, y: 50 };
 
   const openProject = (project: (typeof portfolioProjects)[number], node: HTMLElement) => {
     lastFocusedNode.current = node;
@@ -358,30 +462,42 @@ const NetworkPortfolio: FC = () => {
       >
         <svg className="network-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           {linePositions.map((position, index) => (
-            <line key={`${activeTab}-line-${index}`} className="connection-line" x1="50" y1="50" x2={position.x} y2={position.y} />
+            <line key={`${activeTab}-line-${index}`} className="connection-line" x1={profilePosition.x} y1={profilePosition.y} x2={position.x} y2={position.y} />
           ))}
         </svg>
 
-        <div
-          className="network-center"
-          role="button"
-          tabIndex={0}
-          aria-label="About Aniruddha Ganesh"
-          data-testid="network-profile-node"
-          onClick={(event) => openProfile(event.currentTarget)}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              openProfile(event.currentTarget);
-            }
-          }}
-        >
-          <div className="profile-frame">
-            <img className="profile-node-image" src={PROFILE_IMAGE} alt="Aniruddha Ganesh" />
-          </div>
-        </div>
-
         <div className="network-nodes" data-testid="network-nodes" ref={networkNodesRef}>
+          <div
+            className="network-center"
+            style={{ left: `${profilePosition.x}%`, top: `${profilePosition.y}%` }}
+            role="button"
+            tabIndex={0}
+            aria-label="About Aniruddha Ganesh"
+            data-testid="network-profile-node"
+            onPointerDown={handleProfilePointerDown}
+            onPointerMove={handleProfilePointerMove}
+            onPointerUp={handleProfilePointerEnd}
+            onPointerCancel={handleProfilePointerEnd}
+            onClick={(event) => {
+              if (suppressProfileClick.current) {
+                event.preventDefault();
+                suppressProfileClick.current = false;
+                return;
+              }
+              openProfile(event.currentTarget);
+            }}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                openProfile(event.currentTarget);
+              }
+            }}
+          >
+            <div className="profile-frame">
+              <img className="profile-node-image" src={PROFILE_IMAGE} alt="Aniruddha Ganesh" draggable={false} />
+            </div>
+          </div>
+
           {items.map((item, index) => {
             const position = simulatedPositions[item.id] ?? positions[index];
             const label = "projectTitle" in item ? item.projectTitle : item.label;
