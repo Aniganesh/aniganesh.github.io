@@ -4,6 +4,8 @@ Built with React, TypeScript, Vite, and build-time static rendering. Hosted on G
 
 View the portfolio here: https://profile.indic-games.in
 
+Read the engineering note on the [Gemini and Claude RAG evaluation](https://profile.indic-games.in/writing/evaluating-gemini-and-claude-on-the-same-rag-task/).
+
 ## Development
 
 ```bash

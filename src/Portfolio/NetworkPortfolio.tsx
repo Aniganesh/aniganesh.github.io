@@ -451,6 +451,7 @@ const NetworkPortfolio: FC = () => {
             </button>
           ))}
         </div>
+        <a className="portfolio-writing-link" href="/writing/evaluating-gemini-and-claude-on-the-same-rag-task/">Engineering notes <ArrowUpRight size={13} /></a>
       </header>
 
       <section

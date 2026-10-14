@@ -127,3 +127,41 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
 }
+
+.portfolio-header { align-items: center; }
+.portfolio-writing-link { position: absolute; right: clamp(1.25rem, 5vw, 5rem); display: inline-flex; align-items: center; gap: 0.35rem; color: rgba(207, 250, 254, 0.7); font-size: 0.7rem; letter-spacing: 0.08em; text-decoration: none; text-transform: uppercase; transition: color 180ms ease; }
+.portfolio-writing-link:hover, .portfolio-writing-link:focus-visible { color: #fff; }
+.portfolio-writing-link:focus-visible, .writing-back:focus-visible, .writing-footer a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+.writing-shell { min-height: 100vh; overflow: clip; padding: 0 clamp(1.25rem, 5vw, 5rem) 3rem; }
+.writing-header { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.7rem 0; border-bottom: 1px solid rgba(186, 230, 253, 0.12); color: rgba(186, 230, 253, 0.48); font: 0.65rem ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.12em; }
+.writing-back { display: inline-flex; align-items: center; gap: 0.45rem; color: #cffafe; text-decoration: none; letter-spacing: 0.04em; }
+.writing-article { position: relative; z-index: 1; width: min(100%, 740px); margin: 0 auto; padding: clamp(3rem, 8vw, 6rem) 0 2rem; color: rgba(224, 247, 255, 0.78); font-size: 1rem; line-height: 1.85; }
+.writing-kicker { margin: 0 0 1rem; color: #67e8f9; font: 0.68rem ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.14em; text-transform: uppercase; }
+.writing-article h1 { max-width: 720px; margin: 0; color: #f0fbff; font-size: clamp(2.6rem, 7vw, 4.8rem); font-weight: 550; letter-spacing: -0.055em; line-height: 1.04; }
+.writing-deck { max-width: 660px; margin: 1.5rem 0 1.7rem; color: rgba(207, 250, 254, 0.72); font-size: clamp(1.1rem, 2.4vw, 1.35rem); line-height: 1.65; }
+.writing-byline { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; padding: 0 0 1.8rem; border-bottom: 1px solid rgba(186, 230, 253, 0.12); color: rgba(186, 230, 253, 0.48); font: 0.63rem ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.1em; }
+.writing-intro { margin: 2rem 0 3.2rem; color: #e6f7ff; font-size: 1.2rem; line-height: 1.8; }
+.writing-article h2 { margin: 3rem 0 0.8rem; color: #e6f7ff; font-size: clamp(1.45rem, 3.5vw, 1.85rem); font-weight: 550; letter-spacing: -0.025em; line-height: 1.25; }
+.writing-article p { margin: 0 0 1.1rem; }
+.writing-article a { color: #67e8f9; text-underline-offset: 0.2em; }
+.writing-article code { padding: 0.1em 0.35em; border: 1px solid rgba(103, 232, 249, 0.16); border-radius: 0.3em; color: #cffafe; background: rgba(8, 25, 43, 0.7); font-size: 0.86em; }
+.writing-table-wrap { overflow-x: auto; margin: 1.5rem 0; border: 1px solid rgba(103, 232, 249, 0.16); border-radius: 0.8rem; background: rgba(5, 18, 37, 0.52); }
+.writing-results { width: 100%; border-collapse: collapse; min-width: 580px; font-size: 0.85rem; line-height: 1.5; text-align: left; }
+.writing-results th, .writing-results td { padding: 0.85rem 0.9rem; border-bottom: 1px solid rgba(186, 230, 253, 0.1); }
+.writing-results thead th { color: rgba(186, 230, 253, 0.56); font: 0.62rem ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.08em; text-transform: uppercase; }
+.writing-results tbody th { color: #e6f7ff; font-weight: 600; white-space: nowrap; }
+.writing-results tbody tr:last-child th, .writing-results tbody tr:last-child td { border-bottom: 0; }
+.writing-callout { display: grid; gap: 0.55rem; margin: 3rem 0; padding: 1.3rem 1.4rem; border: 1px solid rgba(103, 232, 249, 0.2); border-radius: 0.9rem; background: rgba(8, 25, 43, 0.62); }
+.writing-callout strong { color: #e6f7ff; }
+.writing-callout span { color: rgba(224, 247, 255, 0.68); font-size: 0.9rem; }
+.writing-footer { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid rgba(186, 230, 253, 0.12); font-size: 0.82rem; }
+.writing-footer a { text-decoration: none; }
+@media (max-width: 700px) {
+  .portfolio-header { position: relative; padding-top: 1.15rem; }
+  .portfolio-writing-link { position: static; justify-content: center; margin: 0.7rem auto 0; }
+  .writing-shell { padding-bottom: 2rem; }
+  .writing-header { font-size: 0.58rem; }
+  .writing-article { font-size: 0.94rem; }
+  .writing-intro { font-size: 1.08rem; }
+  .writing-footer { flex-wrap: wrap; }
+}
